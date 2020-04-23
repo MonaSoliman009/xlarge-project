@@ -25,8 +25,10 @@ files_arr.forEach(function (file) {
 });
 var user=require("./controllers/user");
 var admin=require("./controllers/admin");
+var login = require("./controllers/login")
 app.use("/xlarge/admin",admin)
 app.use("/xlarge/user",user)
+app.use("/xlarge/login",login)
 // var limiter = ratelimit({
 //   max: 100,
 //   windowMs: 60 * 60 * 1000,
@@ -64,7 +66,10 @@ app.all("*", function (req, res, next) {
   var mongosanatize = require("express-mongo-sanitize");
   
 
-
+  if (!config.get("jwtprivatekey")) {
+    console.error("jwtprivatekey undefined");
+    process.exit(1);
+  }
 
 mongoose.Promise = global.Promise;
 mongoose.connect(

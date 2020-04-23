@@ -1,7 +1,11 @@
 const mongoose = require("mongoose")
 var joi = require("joi");
 var author = mongoose.model("author", new mongoose.Schema({
-
+name:{
+type:String,
+required:true,
+min:4
+},
     email: {
         type: String,
         required: true,
@@ -27,6 +31,7 @@ function validateauthor(autores) {
    
       email: joi.string().min(15).max(225).required(),
       password: joi.string().min(8).max(255).required(),
+      name: joi.string().min(4).max(20).required(),
    
    
    

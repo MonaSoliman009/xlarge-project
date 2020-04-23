@@ -19,7 +19,13 @@ var post = mongoose.model("post", new mongoose.Schema({
   category:{
       type:String,
       required:true
-  }
+  },
+  createdby:
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'author'
+    }  
+ 
 
  
 }));
