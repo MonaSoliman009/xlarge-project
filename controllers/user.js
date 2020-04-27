@@ -15,6 +15,10 @@ var {
     validateuser,
     user
   } = require("../models/user");
+  var {
+ 
+    author
+  } = require("../models/author");
 
 
   router.post("/signup",  parseUrlencoded, async (req, res, next) => {
@@ -52,12 +56,26 @@ var {
   });
 
 
+  router.get("/account/:id", async (req, res) => {
+
+    let user_account = await user.findOne({
+      _id: req.params.id
+    });
+  
+    res.json(user_account)
+  });
+  
 
 
 
+  router.get("/author/account/:id", async (req, res) => {
 
-
-
+    let author_account = await author.findOne({
+      _id: req.params.id
+    });
+  
+    res.json(author_account)
+  });
 
 
 

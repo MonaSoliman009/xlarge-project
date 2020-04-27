@@ -26,9 +26,13 @@ files_arr.forEach(function (file) {
 var user=require("./controllers/user");
 var admin=require("./controllers/admin");
 var login = require("./controllers/login")
+var post = require("./controllers/posting")
+var search = require("./controllers/search")
 app.use("/xlarge/admin",admin)
 app.use("/xlarge/user",user)
 app.use("/xlarge/login",login)
+app.use("/xlarge/post",post)
+app.use("/xlarge/search",search)
 // var limiter = ratelimit({
 //   max: 100,
 //   windowMs: 60 * 60 * 1000,
