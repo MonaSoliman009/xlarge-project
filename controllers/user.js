@@ -169,6 +169,42 @@ var {
 *        type: "string"
 *    xml:
 *      name: "admin"
+*  author:
+*    type: "object"
+*    required:
+*    - "name"
+*    - "email"
+*    - "password"
+*    properties:
+*      name:
+*        type: "string"
+*      email:
+*        type: "string"
+*      password:
+*        type: "string"
+*      post:
+*        type: "array"
+*    xml:
+*      name: "author"
+*  post:
+*    type: "object"
+*    required:
+*    - "content"
+*    - "category"
+*    - "title"
+*    properties:
+*      title:
+*        type: "string"
+*      createdat:
+*        type: "Date"
+*      content:
+*        type: "string"
+*      category:
+*        type: "string"
+*      createdby:
+*        type: "object"
+*    xml:
+*      name: "post"
 */
 
 
