@@ -20,7 +20,31 @@ var {
   } = require("../models/author");
   var {admin} = require("../models/admin")
 
-
+/**
+ * @swagger
+ * /xlarge/login:
+ *  post:
+ *    description: Use to login to our website
+ *    parameters:
+ *    -  name: email
+ *       in: query
+ *       description: "user email for login"
+ *       required: true
+ *       type: "string" 
+ *    -  name: password
+ *       in: query
+ *       description: "user password for login"
+ *       required: true
+ *       type: "string"
+ *    responses:
+ *      '400':
+ *        description: email or password is invalid
+ *      '200':
+ *        description: A successful request with the jwt containing the kind of user(user,author,admin) + ID
+ *        headers: 
+ *          x_auth_token_ + "author" || "user" || "admin":
+ *             description: contain the token + type of user
+ */
 router.post('/', parseUrlencoded, async (req, res) => {
 
     var {
@@ -147,7 +171,23 @@ function validate(req) {
 }
 
 
-
+/**
+ * @swagger
+ * /xlarge/login/forget/password:
+ *  post:
+ *    description: Use when the user forget his/her password
+ *    parameters:
+ *    -  name: email
+ *       in: query
+ *       description: "user email to check if he own account or not "
+ *       required: true
+ *       type: "string" 
+ *    responses:
+ *      '400':
+ *        description: email is invalid
+ *      '200':
+ *        description: we will send message to his e.mail address
+ */
 
 router.post("/forget/password", parseUrlencoded,async(req,res)=>{
   
@@ -273,7 +313,28 @@ router.post("/forget/password", parseUrlencoded,async(req,res)=>{
 
 
 
-
+/**
+ * @swagger
+ * /xlarge/login/reset/password:
+ *  post:
+ *    description: Use to reset his password after redirect him from his e.mail
+ *    parameters:
+ *    -  name: email
+ *       in: query
+ *       description: "user email for reset"
+ *       required: true
+ *       type: "string"
+ *    -  name: password
+ *       in: query
+ *       description: "new password for reset"
+ *       required: true
+ *       type: "string"
+ *    responses:
+ *      '400':
+ *        description: something went wrong
+ *      '200':
+ *        description: A successful request with the data of this user send in json format
+ */
 
   router.post("/reset/password",parseUrlencoded,async(req,res)=>{
 
@@ -292,6 +353,7 @@ router.post("/forget/password", parseUrlencoded,async(req,res)=>{
   
     author.update({email:req.body.email},{password:req.body.password},function(err,data){
       if(err){
+        res.status(400).send("something went wrong")
       }
       res.send(data)
   })
@@ -306,6 +368,8 @@ router.post("/forget/password", parseUrlencoded,async(req,res)=>{
         
           admin.update({email:req.body.email},{password:req.body.password},function(err,data){
             if(err){
+              res.status(400).send("something went wrong")
+
             }
             res.send(data)
         })
@@ -320,6 +384,8 @@ router.post("/forget/password", parseUrlencoded,async(req,res)=>{
     
       user.update({email:req.body.email},{password:req.body.password},function(err,data){
         if(err){
+          res.status(400).send("something went wrong")
+
         }
         res.send(data)
     })

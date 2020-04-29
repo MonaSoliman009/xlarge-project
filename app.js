@@ -23,6 +23,24 @@ var files_arr = fs.readdirSync(__dirname + "/models");
 files_arr.forEach(function (file) {
   require(__dirname + "/models/" + file);
 });
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: "Xlarge API",
+      description: "API for Xlarge Magazine project ",
+      contact: {
+        name: "Go Team"
+      },
+      servers: ["http://localhost:3000"]
+    }
+  },
+  apis: ["./controllers/*.js"]
+};
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 var user=require("./controllers/user");
 var admin=require("./controllers/admin");
 var login = require("./controllers/login")
