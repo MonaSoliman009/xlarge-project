@@ -77,7 +77,7 @@ var {
 
 /**
  * @swagger
- * /xlarge/user/account/{user Id}:
+ * /xlarge/user/account/:id:
  *  get:
  *    description: Use to find an user account with his ID (using after login)
  *    parameters:
@@ -103,7 +103,7 @@ var {
 
 /**
  * @swagger
- * /xlarge/user/author/account/{author Id}:
+ * /xlarge/user/author/account/:id:
  *  get:
  *    description: Use to find an author account with his ID (using after login)
  *    parameters:

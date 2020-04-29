@@ -20,7 +20,7 @@ var {
 
 /**
  * @swagger
- * /xlarge/search/category/{category name}:
+ * /xlarge/search/category/:categorey:
  *  get:
  *    description: Use to find a specific category posts
  *    parameters:
@@ -56,7 +56,7 @@ var {
 
 /**
  * @swagger
- * /xlarge/search/category/{author name}:
+ * /xlarge/search/name/:name:
  *  get:
  *    description: Use to find posts to a specific author posts
  *    parameters:
