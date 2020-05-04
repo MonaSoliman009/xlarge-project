@@ -57,7 +57,6 @@ router.post("/create", parseUrlencoded, async (req, res) => {
  * /xlarge/post/delete/post/:id:
  *  delete:
  *    description: Use to delete post
- *       required: true
  *    responses:
  *      '200':
  *        description: post is deleted successfully
