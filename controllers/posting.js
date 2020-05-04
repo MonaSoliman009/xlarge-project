@@ -121,4 +121,24 @@ router.post("/update", parseUrlencoded, async (req, res) => {
 })
 
 
+  /**
+ * @swagger
+ * /xlarge/post/list:
+ *  get:
+ *    description: Use to retrieve All Posts  
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of all posts send in json format
+ * 
+ */
+
+
+router.get("/list", async (req, res) => {
+  let result = await post.find({});
+  res.json(result)
+
+
+})
+
+
 module.exports = router;
