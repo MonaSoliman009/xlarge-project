@@ -4,7 +4,8 @@
 
     1-open cmd in the project folder
     2- write: set securekey=mysecurekey
-    3- write: node app
+    3-write: npm i
+    4- write: node app
 
 # REST API
 
