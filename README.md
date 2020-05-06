@@ -17,4 +17,4 @@ The REST API to xlarge project . Requests and responses descriped below.
  ###  to read this documentation (requests and responses and scehma) follow this steps:
  
        1-open your browser
-       2-write this url "localhost:"http://localhost:3000/api-docs" after running the project
+       2-write this url "http://localhost:3000/api-docs" after running the project
