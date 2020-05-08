@@ -15,11 +15,7 @@ var {
     validateuser,
     user
   } = require("../models/user");
-  var {
  
-    author
-  } = require("../models/author");
-
 
   /**
  * @swagger
