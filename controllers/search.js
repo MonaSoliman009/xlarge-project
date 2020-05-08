@@ -14,8 +14,8 @@ var {
   } = require("../models/post");
   var {
     
-    author
-    } = require("../models/author")
+    user
+    } = require("../models/user")
 
 
 /**
@@ -58,16 +58,16 @@ var {
  * @swagger
  * /xlarge/search/name/:name:
  *  get:
- *    description: Use to find posts to a specific author posts
+ *    description: Use to find posts to a specific user posts
  *    parameters:
- *    -  name: name of author
+ *    -  name: name of user
  *       in: path
- *       description: "author name send in the url"
+ *       description: "user name send in the url"
  *       required: true
  *       type: "string"
  *    responses:
  *      '400':
- *        description: author not found
+ *        description: user not found
  *      '200':
  *        description: A successful request with the data of posts send in json format
  */
@@ -76,7 +76,7 @@ var {
   router.get("/name/:name",async(req,resp)=>{
     var name=req.params.name;
      
- await   author.find({"name": {"$regex": name}},function(err,data){
+ await   user.find({"name": {"$regex": name}},function(err,data){
      if(data.length!=0){
 console.log(data[0]._id)
 post.find({"createdby":data[0]._id},function(err,data){

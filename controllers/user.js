@@ -101,32 +101,6 @@ var {
   });
   
 
-/**
- * @swagger
- * /xlarge/user/author/account/:id:
- *  get:
- *    description: Use to find an author account with his ID (using after login)
- *    parameters:
- *    -  name: author id sent in the url
- *       in: path
- *       description: "category name send in the url"
- *       required: true
- *       type: "integer"
- *       format: "int64"
- *    responses:
- *      '200':
- *        description: A successful request with the data of author send in json format
- */
-
-  router.get("/author/account/:id", async (req, res) => {
-
-    let author_account = await author.findOne({
-      _id: req.params.id
-    });
-  
-    res.status(200).json(author_account)
-  });
-
 
 /**   
 * @swagger

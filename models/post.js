@@ -23,7 +23,7 @@ var post = mongoose.model("post", new mongoose.Schema({
   createdby:
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'author'
+      ref: 'user'
     }  
  
 

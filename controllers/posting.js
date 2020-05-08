@@ -7,10 +7,7 @@ var parseUrlencoded = bodyParser.urlencoded({
   extended: true
 });
 
-var {
-  author
-} = require("../models/author");
-
+var {user} = require('../models/user')
 var {
   post
 } = require("../models/post");
@@ -36,7 +33,7 @@ var {
 router.post("/create", parseUrlencoded, async (req, res) => {
   const { title, content, category, createdby } = req.body
 
-  const post1 = new post({
+  const newPost = new post({
     _id: mongoose.Types.ObjectId(),
     title: title,
     content: content,
@@ -44,10 +41,10 @@ router.post("/create", parseUrlencoded, async (req, res) => {
     createdby: createdby
   })
 
-  result = await post1.save()
-  let author1 = await author.findOne({ _id: createdby })
-  author1.post.push(post1._id)
-  fresult = await author1.save((err, data) => {
+  result = await newPost.save()
+  let user1 = await user.findOne({ _id: createdby })
+  user1.post.push(newPost._id)
+  fresult = await user1.save((err, data) => {
     res.json({ result})
   })
 })
