@@ -94,8 +94,8 @@ app.all("*", function (req, res, next) {
   }
 
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost:27017/slack1"
-// "mongodb+srv://mona:123456aa@cluster0-vo6eq.mongodb.net/test?retryWrites=true&w=majority" 
+mongoose.connect(
+ "mongodb+srv://mona:123456aa@cluster0-vo6eq.mongodb.net/test?retryWrites=true&w=majority" 
  );
   mongoose.connection.on("error", err => {
     console.error(`MongoDB connection error: ${err}`);
