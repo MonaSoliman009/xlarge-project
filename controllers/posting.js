@@ -110,7 +110,7 @@ router.delete("/delete/:id", function (req, resp) {
 
   /**
  * @swagger
- * /xlarge/post/update:
+ * /xlarge/post/update/:id:
  *  post:
  *    description: Use to delete post
  *    parameters:

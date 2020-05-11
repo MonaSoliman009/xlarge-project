@@ -171,29 +171,13 @@ var {
 *        type: "string"
 *    xml:
 *      name: "admin"
-*  author:
-*    type: "object"
-*    required:
-*    - "name"
-*    - "email"
-*    - "password"
-*    properties:
-*      name:
-*        type: "string"
-*      email:
-*        type: "string"
-*      password:
-*        type: "string"
-*      post:
-*        type: "array"
-*    xml:
-*      name: "author"
 *  post:
 *    type: "object"
 *    required:
 *    - "content"
 *    - "category"
 *    - "title"
+*    - "img"
 *    properties:
 *      title:
 *        type: "string"
@@ -205,6 +189,8 @@ var {
 *        type: "string"
 *      createdby:
 *        type: "object"
+*      img:
+*        type:"string"
 *    xml:
 *      name: "post"
 */
