@@ -7,8 +7,7 @@ var parseUrlencoded = bodyParser.urlencoded({
 });
 var mongoose = require("mongoose");
 var jwt = require("jsonwebtoken");
-const multer = require("multer");
-const path = require("path");
+
 var bcrypt = require("bcryptjs");
 
 var {

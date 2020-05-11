@@ -82,7 +82,9 @@ router.post('/', parseUrlencoded, async (req, res) => {
 
 
     }
-
+  else{
+    res.json("invalid email or password")
+  }
 
   }
 

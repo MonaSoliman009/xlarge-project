@@ -95,7 +95,7 @@ router.post("/create", upload.single('img'), async (req, res) => {
  * 
  */
 
-router.delete("/delete/post/:id", function (req, resp) {
+router.delete("/delete/:id", function (req, resp) {
 
   mongoose.model("post").findOneAndRemove({
     _id: req.params.id
@@ -144,10 +144,10 @@ router.delete("/delete/post/:id", function (req, resp) {
  * 
  */
 
-router.post("/update", parseUrlencoded, async (req, res) => {
+router.post("/update/:id", parseUrlencoded, async (req, res) => {
 
-  const { post_id, title, content, category } = req.body
-  let result = await post.findOneAndUpdate({ _id: post_id }, { title: title, content: content, category: category })
+  const {  title, content, category,img } = req.body
+  let result = await post.findOneAndUpdate({ _id: req.params.id }, { title: title, content: content, category: category,img:img })
   res.json({ result})
 
 })
