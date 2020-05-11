@@ -2,6 +2,39 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var router = express.Router();
 var mongoose = require('mongoose')
+const path = require('path');
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'ddo2kzwbh', 
+  api_key: '431946565525743', 
+  api_secret: '8gmOkgnY8RHDLRuAMf52CufXAOc' 
+});
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, path.join(__dirname, '/upload/'));
+  },
+  filename: function(req, file, cb) {
+    cb(null,  file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
 
 var parseUrlencoded = bodyParser.urlencoded({
   extended: true
@@ -30,22 +63,24 @@ var {
  * 
  */
 
-router.post("/create", parseUrlencoded, async (req, res) => {
+router.post("/create", upload.single('img'), async (req, res) => {
   const { title, content, category, createdby } = req.body
+  const result = await cloudinary.v2.uploader.upload(req.file.path)
 
   const newPost = new post({
     _id: mongoose.Types.ObjectId(),
     title: title,
     content: content,
     category: category,
-    createdby: createdby
+    createdby: createdby,
+    img:result.secure_url
   })
 
-  result = await newPost.save()
+  resultt = await newPost.save()
   let user1 = await user.findOne({ _id: createdby })
   user1.post.push(newPost._id)
   fresult = await user1.save((err, data) => {
-    res.json({ result})
+    res.json({ resultt})
   })
 })
 

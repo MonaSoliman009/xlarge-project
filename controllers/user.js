@@ -8,9 +8,40 @@ var parseUrlencoded = bodyParser.urlencoded({
 var mongoose = require("mongoose");
 var jwt = require("jsonwebtoken");
 var config = require("config");
-const multer = require("multer");
-const path = require("path");
 var bcrypt = require("bcryptjs");
+const path = require('path');
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'ddo2kzwbh', 
+  api_key: '431946565525743', 
+  api_secret: '8gmOkgnY8RHDLRuAMf52CufXAOc' 
+});
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, path.join(__dirname, '/upload/'));
+  },
+  filename: function(req, file, cb) {
+    cb(null,  file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
 var {
     validateuser,
     user
@@ -37,7 +68,7 @@ var {
  * 
  */
 
-  router.post("/signup",  parseUrlencoded, async (req, res, next) => {
+  router.post("/signup",  upload.single('img'), async (req, res, next) => {
     var {
       error
     } = validateuser(req.body);
@@ -50,7 +81,8 @@ var {
     if (userr) {
       return res.status(400).send("user already registered.");
     }
-  
+    const result = await cloudinary.v2.uploader.upload(req.file.path)
+
     userr = new user({
         name: req.body.name,
       email: req.body.email,
@@ -58,7 +90,7 @@ var {
       Age: req.body.Age,
       phone: req.body.phone,
       country: req.body.country,
-      img: req.body.img,
+      img: result.secure_url
     });
   
     var salt = await bcrypt.genSalt(10);

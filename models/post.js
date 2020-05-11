@@ -24,7 +24,11 @@ var post = mongoose.model("post", new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'user'
-    }  
+    } ,
+    img:{
+      type: String
+
+    } 
  
 
  
