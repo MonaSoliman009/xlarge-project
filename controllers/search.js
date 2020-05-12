@@ -50,7 +50,10 @@ var {
 
    }
     
-    )
+    ).populate("category").exec(function(err,data){
+      if(err) console.log(err);
+      //this will log all of the users with each of their posts 
+    })
     
     
     }
