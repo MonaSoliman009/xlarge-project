@@ -17,8 +17,10 @@ var post = mongoose.model("post", new mongoose.Schema({
     required:true
   },
   category:{
-      type:String,
-      required:true
+    
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'categories'
+    
   },
   createdby:
     {

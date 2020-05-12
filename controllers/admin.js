@@ -19,6 +19,9 @@ var {
   user
 } = require("../models/user");
 
+var {
+  categories,validatecategory
+}=require("../models/category")
   /**
  * @swagger
  * /xlarge/admin/delete/user/:id:
@@ -128,5 +131,86 @@ router.get("/user/list", async (req, res) => {
 
 
 
+});
+
+
+  /**
+ * @swagger
+ * /xlarge/admin/add/category:
+ *  post:
+ *    description: Use to delete post
+ *    parameters:
+ *      - name: name
+ *        description: name of category
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: string
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of this category send in json format
+ * 
+ */
+
+router.post("/add/category", parseUrlencoded,async(req,res)=>{
+
+  var {
+    error
+  } = validatecategory(req.body);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
+  let new_category = new categories({
+
+    name: req.body.name,
+
+  });
+
+  await new_category.save();
+  res.json(new_category);
+})
+
+ /**
+ * @swagger
+ * /xlarge/admin/categories:
+ *  get:
+ *    description: Use to retrieve All categories  
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of all categories send in json format
+ * 
+ */
+
+router.get("/categories",async(req,res)=>{
+  let result = await categories.find({});
+  res.json(result)
+
+
+});
+
+  /**
+ * @swagger
+ * /xlarge/admin/delete/category/:id:
+ *  delete:
+ *    description: Use to delete category
+ *    responses:
+ *      '200':
+ *        description: category is deleted successfully
+ * 
+ */
+
+
+router.delete("/delete/category/:id", function (req, resp) {
+
+  mongoose.model("categories").findOneAndRemove({
+    _id: req.params.id
+  },
+    function (err, data) {
+      if (!err) {
+      }
+    })
+
+  resp.json("category deleted")
 })
 module.exports = router;

@@ -45,6 +45,7 @@ var {
   post
 } = require("../models/post");
 
+var {categories}=require("../models/category")
   /**
  * @swagger
  * /xlarge/post/create:
@@ -79,9 +80,14 @@ router.post("/create", upload.single('img'), async (req, res) => {
   resultt = await newPost.save()
   let user1 = await user.findOne({ _id: createdby })
   user1.post.push(newPost._id)
+ let postid=await categories.findOne({_id:category});
+ postid.post.push(newPost._id)
+  await postid.save((err,data)=>{
+console.log("saved")
+  })
   fresult = await user1.save((err, data) => {
     res.json({ resultt})
-  })
+  });
 })
 
   /**

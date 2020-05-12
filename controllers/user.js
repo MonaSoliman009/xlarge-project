@@ -193,6 +193,18 @@ var {
 *        type:"string"
 *    xml:
 *      name: "post"
+*  categories:
+*    type: "object"
+*    required:
+*    - "name"
+*    - "posts"
+*    properties:
+*      name:
+*        type: "string"
+*      post:
+*        type: "array"
+*    xml:
+*      name: "categories"
 */
 
 

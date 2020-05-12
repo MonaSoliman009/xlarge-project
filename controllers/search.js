@@ -16,6 +16,7 @@ var {
     
     user
     } = require("../models/user")
+    var {categories}=require("../models/category")
 
 
 /**
@@ -39,12 +40,20 @@ var {
 
     
   router.get("/category/:categorey",async(req,resp)=>{
-    var name=req.params.categorey;
      
-    post.find({"category": {"$regex": name}},function(err,data){
-     if(data.length!=0)
-   
-     resp.status(200).json(data);
+    categories.find({name:req.params.categorey},function(err,data){
+      
+     if(data.length!=0){
+       console.log(data[0]._id)
+   post.find({category:data[0]._id},(err,data)=>{
+    resp.status(200).json(data);
+
+   }
+    
+    )
+    
+    
+    }
      else
      resp.status(400).send("Not found");
    
