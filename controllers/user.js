@@ -81,26 +81,57 @@ var {
     if (userr) {
       return res.status(400).send("user already registered.");
     }
-    const result = await cloudinary.v2.uploader.upload(req.file.path)
+    if(req.file){
 
-    userr = new user({
-        name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-      Age: req.body.Age,
-      phone: req.body.phone,
-      country: req.body.country,
-      img: result.secure_url
-    });
-  
-    var salt = await bcrypt.genSalt(10);
-    userr.password = await bcrypt.hash(userr.password, salt);
-    await userr.save();
-  
+
+      const result = await cloudinary.v2.uploader.upload(req.file.path)
+
+      userr = new user({
+          name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        Age: req.body.Age,
+        phone: req.body.phone,
+        country: req.body.country,
+        img: result.secure_url
+      });
     
-    res.status(200).json({
-        userr
-    });
+      var salt = await bcrypt.genSalt(10);
+      userr.password = await bcrypt.hash(userr.password, salt);
+      await userr.save();
+    
+      
+      res.status(200).json({
+          userr
+      });
+
+
+
+    }
+    else{
+
+
+      userr = new user({
+          name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        Age: req.body.Age,
+        phone: req.body.phone,
+        country: req.body.country,
+      });
+    
+      var salt = await bcrypt.genSalt(10);
+      userr.password = await bcrypt.hash(userr.password, salt);
+      await userr.save();
+    
+      
+      res.status(200).json({
+          userr
+      });
+
+      
+    }
+
   });
 
 /**

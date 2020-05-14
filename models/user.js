@@ -23,7 +23,8 @@ var user = mongoose.model("user", new mongoose.Schema({
     max: 255
   },
   img: {
-    type: String
+    type: String,
+    default:"https://res.cloudinary.com/ddo2kzwbh/image/upload/v1589435461/default_byzopq.jpg"
   },
   phone: {
     type: String,

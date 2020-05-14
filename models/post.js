@@ -28,7 +28,8 @@ var post = mongoose.model("post", new mongoose.Schema({
       ref: 'user'
     } ,
     img:{
-      type: String
+      type: String,
+      default:"https://res.cloudinary.com/ddo2kzwbh/image/upload/v1589436873/posts-default_gz3w3r.jpg"
 
     } 
  

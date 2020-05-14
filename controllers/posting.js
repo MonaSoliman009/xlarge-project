@@ -66,28 +66,61 @@ var {categories}=require("../models/category")
 
 router.post("/create", upload.single('img'), async (req, res) => {
   const { title, content, category, createdby } = req.body
-  const result = await cloudinary.v2.uploader.upload(req.file.path)
+  if(req.file){
 
-  const newPost = new post({
-    _id: mongoose.Types.ObjectId(),
-    title: title,
-    content: content,
-    category: category,
-    createdby: createdby,
-    img:result.secure_url
-  })
+    const result = await cloudinary.v2.uploader.upload(req.file.path)
 
-  resultt = await newPost.save()
-  let user1 = await user.findOne({ _id: createdby })
-  user1.post.push(newPost._id)
- let postid=await categories.findOne({_id:category});
- postid.post.push(newPost._id)
-  await postid.save((err,data)=>{
-console.log("saved")
-  })
-  fresult = await user1.save((err, data) => {
-    res.json({ resultt})
-  });
+    const newPost = new post({
+      _id: mongoose.Types.ObjectId(),
+      title: title,
+      content: content,
+      category: category,
+      createdby: createdby,
+      img:result.secure_url
+    })
+  
+    resultt = await newPost.save()
+    let user1 = await user.findOne({ _id: createdby })
+    user1.post.push(newPost._id)
+   let postid=await categories.findOne({_id:category});
+   postid.post.push(newPost._id)
+    await postid.save((err,data)=>{
+  console.log("saved")
+    })
+    fresult = await user1.save((err, data) => {
+      res.json({ resultt})
+    });
+
+  }
+  else{
+
+
+
+    const newPost = new post({
+      _id: mongoose.Types.ObjectId(),
+      title: title,
+      content: content,
+      category: category,
+      createdby: createdby,
+      
+    })
+  
+    resultt = await newPost.save()
+    let user1 = await user.findOne({ _id: createdby })
+    user1.post.push(newPost._id)
+   let postid=await categories.findOne({_id:category});
+   postid.post.push(newPost._id)
+    await postid.save((err,data)=>{
+  console.log("saved")
+    })
+    fresult = await user1.save((err, data) => {
+      res.json({ resultt})
+    });
+
+
+
+  }
+  
 })
 
   /**
@@ -150,12 +183,24 @@ router.delete("/delete/:id", function (req, resp) {
  * 
  */
 
-router.post("/update/:id", parseUrlencoded, async (req, res) => {
+router.post("/update/:id", upload.single('img'), async (req, res) => {
 
   const {  title, content, category,img } = req.body
-  let result = await post.findOneAndUpdate({ _id: req.params.id }, { title: title, content: content, category: category,img:img })
+  if(req.file){
+
+    const resultt = await cloudinary.v2.uploader.upload(req.file.path)
+
+    let result = await post.findOneAndUpdate({ _id: req.params.id }, { title: title, content: content, category: category,img:resultt.secure_url})
+    res.json({ result})
+  }
+
+else{
+
+  let result = await post.findOneAndUpdate({ _id: req.params.id }, { title: title, content: content, category: category})
   res.json({ result})
 
+
+}
 })
 
 
