@@ -24,12 +24,12 @@ var { admin } = require("../models/admin")
  *  post:
  *    description: Use to login to our website
  *    parameters:
- *    -  name: email
+ *    -  name: "email"
  *       in: query
  *       description: "user email for login"
  *       required: true
  *       type: "string" 
- *    -  name: password
+ *    -  name: "password"
  *       in: query
  *       description: "user password for login"
  *       required: true

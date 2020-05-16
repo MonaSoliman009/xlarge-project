@@ -9,6 +9,7 @@ cloudinary.config({
   api_key: '431946565525743', 
   api_secret: '8gmOkgnY8RHDLRuAMf52CufXAOc' 
 });
+
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -46,11 +47,19 @@ var {
 } = require("../models/post");
 
 var {categories}=require("../models/category")
+var {web,validateweb}=require("../models/web")
+var {android,validateandroid}=require("../models/Applicationdevelopment")
+
+var {testing,validatetesting}=require("../models/Miscellaneousfields")
+var {opensource,validateopensource}=require("../models/opensource")
+var {competitive,validatecompetitive}=require("../models/competitive")
+var {machine,validatemachine}=require("../models/machinelearning")
+var {data,validatedata}=require("../models/datascience")
   /**
  * @swagger
- * /xlarge/post/create:
+ * /xlarge/post/create/web:
  *  post:
- *    description: Use to create new post
+ *    description: Use to create new post in web category
  *    parameters:
  *    -  in: body
  *       name: body
@@ -64,7 +73,7 @@ var {categories}=require("../models/category")
  * 
  */
 
-router.post("/create", upload.single('img'), async (req, res) => {
+router.post("/create/web", upload.single('img'), async (req, res) => {
   const { title, content, category, createdby } = req.body
   if(req.file){
 
@@ -82,7 +91,7 @@ router.post("/create", upload.single('img'), async (req, res) => {
     resultt = await newPost.save()
     let user1 = await user.findOne({ _id: createdby })
     user1.post.push(newPost._id)
-   let postid=await categories.findOne({_id:category});
+   let postid=await web.findOne({_id:category});
    postid.post.push(newPost._id)
     await postid.save((err,data)=>{
   console.log("saved")
@@ -108,7 +117,7 @@ router.post("/create", upload.single('img'), async (req, res) => {
     resultt = await newPost.save()
     let user1 = await user.findOne({ _id: createdby })
     user1.post.push(newPost._id)
-   let postid=await categories.findOne({_id:category});
+   let postid=await web.findOne({_id:category});
    postid.post.push(newPost._id)
     await postid.save((err,data)=>{
   console.log("saved")
@@ -122,6 +131,501 @@ router.post("/create", upload.single('img'), async (req, res) => {
   }
   
 })
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/create/Competitiveprogramming:
+ *  post:
+ *    description: Use to create new post in Competitive programming category
+ *    parameters:
+ *    -  in: body
+ *       name: body
+ *       description: "create new post"
+ *       required: true
+ *       schema:
+ *         $ref: "#/definitions/post"
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of this new post send in json format
+ * 
+ */
+
+router.post("/create/Competitiveprogramming", upload.single('img'), async (req, res) => {
+  const { title, content, category, createdby } = req.body
+  if(req.file){
+
+    const result = await cloudinary.v2.uploader.upload(req.file.path)
+
+    const newPost = new post({
+      _id: mongoose.Types.ObjectId(),
+      title: title,
+      content: content,
+      category: category,
+      createdby: createdby,
+      img:result.secure_url
+    })
+  
+    resultt = await newPost.save()
+    let user1 = await user.findOne({ _id: createdby })
+    user1.post.push(newPost._id)
+   let postid=await competitive.findOne({_id:category});
+   postid.post.push(newPost._id)
+    await postid.save((err,data)=>{
+  console.log("saved")
+    })
+    fresult = await user1.save((err, data) => {
+      res.json({ resultt})
+    });
+
+  }
+  else{
+
+
+
+    const newPost = new post({
+      _id: mongoose.Types.ObjectId(),
+      title: title,
+      content: content,
+      category: category,
+      createdby: createdby,
+      
+    })
+  
+    resultt = await newPost.save()
+    let user1 = await user.findOne({ _id: createdby })
+    user1.post.push(newPost._id)
+   let postid=await competitive.findOne({_id:category});
+   postid.post.push(newPost._id)
+    await postid.save((err,data)=>{
+  console.log("saved")
+    })
+    fresult = await user1.save((err, data) => {
+      res.json({ resultt})
+    });
+
+
+
+  }
+  
+})
+
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/create/Opensource:
+ *  post:
+ *    description: Use to create new post in Open source category
+ *    parameters:
+ *    -  in: body
+ *       name: body
+ *       description: "create new post"
+ *       required: true
+ *       schema:
+ *         $ref: "#/definitions/post"
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of this new post send in json format
+ * 
+ */
+
+router.post("/create/Opensource", upload.single('img'), async (req, res) => {
+  const { title, content, category, createdby } = req.body
+  if(req.file){
+
+    const result = await cloudinary.v2.uploader.upload(req.file.path)
+
+    const newPost = new post({
+      _id: mongoose.Types.ObjectId(),
+      title: title,
+      content: content,
+      category: category,
+      createdby: createdby,
+      img:result.secure_url
+    })
+  
+    resultt = await newPost.save()
+    let user1 = await user.findOne({ _id: createdby })
+    user1.post.push(newPost._id)
+   let postid=await opensource.findOne({_id:category});
+   postid.post.push(newPost._id)
+    await postid.save((err,data)=>{
+  console.log("saved")
+    })
+    fresult = await user1.save((err, data) => {
+      res.json({ resultt})
+    });
+
+  }
+  else{
+
+
+
+    const newPost = new post({
+      _id: mongoose.Types.ObjectId(),
+      title: title,
+      content: content,
+      category: category,
+      createdby: createdby,
+      
+    })
+  
+    resultt = await newPost.save()
+    let user1 = await user.findOne({ _id: createdby })
+    user1.post.push(newPost._id)
+   let postid=await opensource.findOne({_id:category});
+   postid.post.push(newPost._id)
+    await postid.save((err,data)=>{
+  console.log("saved")
+    })
+    fresult = await user1.save((err, data) => {
+      res.json({ resultt})
+    });
+
+
+
+  }
+  
+})
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/create/Applicationdevelopment:
+ *  post:
+ *    description: Use to create new post in Application development category
+ *    parameters:
+ *    -  in: body
+ *       name: body
+ *       description: "create new post"
+ *       required: true
+ *       schema:
+ *         $ref: "#/definitions/post"
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of this new post send in json format
+ * 
+ */
+
+router.post("/create/Applicationdevelopment", upload.single('img'), async (req, res) => {
+  const { title, content, category, createdby } = req.body
+  if(req.file){
+
+    const result = await cloudinary.v2.uploader.upload(req.file.path)
+
+    const newPost = new post({
+      _id: mongoose.Types.ObjectId(),
+      title: title,
+      content: content,
+      category: category,
+      createdby: createdby,
+      img:result.secure_url
+    })
+  
+    resultt = await newPost.save()
+    let user1 = await user.findOne({ _id: createdby })
+    user1.post.push(newPost._id)
+   let postid=await android.findOne({_id:category});
+   postid.post.push(newPost._id)
+    await postid.save((err,data)=>{
+  console.log("saved")
+    })
+    fresult = await user1.save((err, data) => {
+      res.json({ resultt})
+    });
+
+  }
+  else{
+
+
+
+    const newPost = new post({
+      _id: mongoose.Types.ObjectId(),
+      title: title,
+      content: content,
+      category: category,
+      createdby: createdby,
+      
+    })
+  
+    resultt = await newPost.save()
+    let user1 = await user.findOne({ _id: createdby })
+    user1.post.push(newPost._id)
+   let postid=await android.findOne({_id:category});
+   postid.post.push(newPost._id)
+    await postid.save((err,data)=>{
+  console.log("saved")
+    })
+    fresult = await user1.save((err, data) => {
+      res.json({ resultt})
+    });
+
+
+
+  }
+  
+})
+
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/create/Machinelearning:
+ *  post:
+ *    description: Use to create new post in Machine learning category
+ *    parameters:
+ *    -  in: body
+ *       name: body
+ *       description: "create new post"
+ *       required: true
+ *       schema:
+ *         $ref: "#/definitions/post"
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of this new post send in json format
+ * 
+ */
+
+router.post("/create/Machinelearning", upload.single('img'), async (req, res) => {
+  const { title, content, category, createdby } = req.body
+  if(req.file){
+
+    const result = await cloudinary.v2.uploader.upload(req.file.path)
+
+    const newPost = new post({
+      _id: mongoose.Types.ObjectId(),
+      title: title,
+      content: content,
+      category: category,
+      createdby: createdby,
+      img:result.secure_url
+    })
+  
+    resultt = await newPost.save()
+    let user1 = await user.findOne({ _id: createdby })
+    user1.post.push(newPost._id)
+   let postid=await machine.findOne({_id:category});
+   postid.post.push(newPost._id)
+    await postid.save((err,data)=>{
+  console.log("saved")
+    })
+    fresult = await user1.save((err, data) => {
+      res.json({ resultt})
+    });
+
+  }
+  else{
+
+
+
+    const newPost = new post({
+      _id: mongoose.Types.ObjectId(),
+      title: title,
+      content: content,
+      category: category,
+      createdby: createdby,
+      
+    })
+  
+    resultt = await newPost.save()
+    let user1 = await user.findOne({ _id: createdby })
+    user1.post.push(newPost._id)
+   let postid=await machine.findOne({_id:category});
+   postid.post.push(newPost._id)
+    await postid.save((err,data)=>{
+  console.log("saved")
+    })
+    fresult = await user1.save((err, data) => {
+      res.json({ resultt})
+    });
+
+
+
+  }
+  
+})
+
+
+
+
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/create/Datascience:
+ *  post:
+ *    description: Use to create new post in Data science category
+ *    parameters:
+ *    -  in: body
+ *       name: body
+ *       description: "create new post"
+ *       required: true
+ *       schema:
+ *         $ref: "#/definitions/post"
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of this new post send in json format
+ * 
+ */
+
+router.post("/create/Datascience", upload.single('img'), async (req, res) => {
+  const { title, content, category, createdby } = req.body
+  if(req.file){
+
+    const result = await cloudinary.v2.uploader.upload(req.file.path)
+
+    const newPost = new post({
+      _id: mongoose.Types.ObjectId(),
+      title: title,
+      content: content,
+      category: category,
+      createdby: createdby,
+      img:result.secure_url
+    })
+  
+    resultt = await newPost.save()
+    let user1 = await user.findOne({ _id: createdby })
+    user1.post.push(newPost._id)
+   let postid=await data.findOne({_id:category});
+   postid.post.push(newPost._id)
+    await postid.save((err,data)=>{
+  console.log("saved")
+    })
+    fresult = await user1.save((err, data) => {
+      res.json({ resultt})
+    });
+
+  }
+  else{
+
+
+
+    const newPost = new post({
+      _id: mongoose.Types.ObjectId(),
+      title: title,
+      content: content,
+      category: category,
+      createdby: createdby,
+      
+    })
+  
+    resultt = await newPost.save()
+    let user1 = await user.findOne({ _id: createdby })
+    user1.post.push(newPost._id)
+   let postid=await data.findOne({_id:category});
+   postid.post.push(newPost._id)
+    await postid.save((err,data)=>{
+  console.log("saved")
+    })
+    fresult = await user1.save((err, data) => {
+      res.json({ resultt})
+    });
+
+
+
+  }
+  
+})
+
+
+
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/create/Miscellaneousfields:
+ *  post:
+ *    description: Use to create new post in Miscellaneous fields category
+ *    parameters:
+ *    -  in: body
+ *       name: body
+ *       description: "create new post"
+ *       required: true
+ *       schema:
+ *         $ref: "#/definitions/post"
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of this new post send in json format
+ * 
+ */
+
+router.post("/create/Miscellaneousfields", upload.single('img'), async (req, res) => {
+  const { title, content, category, createdby } = req.body
+  if(req.file){
+
+    const result = await cloudinary.v2.uploader.upload(req.file.path)
+
+    const newPost = new post({
+      _id: mongoose.Types.ObjectId(),
+      title: title,
+      content: content,
+      category: category,
+      createdby: createdby,
+      img:result.secure_url
+    })
+  
+    resultt = await newPost.save()
+    let user1 = await user.findOne({ _id: createdby })
+    user1.post.push(newPost._id)
+   let postid=await testing.findOne({_id:category});
+   postid.post.push(newPost._id)
+    await postid.save((err,data)=>{
+  console.log("saved")
+    })
+    fresult = await user1.save((err, data) => {
+      res.json({ resultt})
+    });
+
+  }
+  else{
+
+
+
+    const newPost = new post({
+      _id: mongoose.Types.ObjectId(),
+      title: title,
+      content: content,
+      category: category,
+      createdby: createdby,
+      
+    })
+  
+    resultt = await newPost.save()
+    let user1 = await user.findOne({ _id: createdby })
+    user1.post.push(newPost._id)
+   let postid=await testing.findOne({_id:category});
+   postid.post.push(newPost._id)
+    await postid.save((err,data)=>{
+  console.log("saved")
+    })
+    fresult = await user1.save((err, data) => {
+      res.json({ resultt})
+    });
+
+
+
+  }
+  
+})
+
+
+
+
+
+
+
+
+
+
+
+
 
   /**
  * @swagger
@@ -223,5 +727,32 @@ router.get("/list", async (req, res) => {
 
 })
 
+  /**
+ * @swagger
+ * /xlarge/post/list/:id:
+ *  get:
+ *    description: Use to retrieve a specific post with its id 
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+router.get("/list/:id", async (req, res) => {
+  let result = await post.find({_id:req.params.id}, function(data,err){
+ if(err){
+   res.status(400).json(err)
+ }
+else{
+  res.json(data)
+
+
+}
+  });
+
+
+})
 
 module.exports = router;

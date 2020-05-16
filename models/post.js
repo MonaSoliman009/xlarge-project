@@ -18,8 +18,8 @@ var post = mongoose.model("post", new mongoose.Schema({
   },
   category:{
     
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'categories'
+    type: mongoose.Schema.Types.ObjectId,
+    enum: ['web', 'android','testing' , 'competitive' , 'data' ,'machine','opensource']
     
   },
   createdby:
