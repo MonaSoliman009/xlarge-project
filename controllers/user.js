@@ -93,7 +93,8 @@ var {
         Age: req.body.Age,
         phone: req.body.phone,
         country: req.body.country,
-        img: result.secure_url
+        img: result.secure_url,
+        About:req.body.About
       });
     
       var salt = await bcrypt.genSalt(10);
@@ -118,6 +119,7 @@ var {
         Age: req.body.Age,
         phone: req.body.phone,
         country: req.body.country,
+        About:req.body.About
       });
     
       var salt = await bcrypt.genSalt(10);
@@ -159,6 +161,78 @@ var {
     res.json(user_account)
   });
   
+
+
+
+  /**
+ * @swagger
+ * /xlarge/user/update/:id:
+ *  post:
+ *    description: Use to update user details
+ *    parameters:
+ *      - name: name
+ *        description: updated name of user
+ *        schema:
+ *          type: string
+ *          format: string
+ *      - name: Age
+ *        description: updated user age
+ *        schema:
+ *          type: string
+ *          format: string
+ *      - name: About
+ *        description: updated user about summary
+ *        schema:
+ *          type: string
+ *          format: string
+ *      - name: country
+ *        description: update user country
+ *        schema:
+ *          type: string
+ *          format: string
+ *      - name: phone
+ *        description: update user phone
+ *        schema:
+ *          type: string
+ *          format: string
+ *      - name: img
+ *        description: update user img
+ *        schema:
+ *          type: string
+ *          format: string
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of this updated post send in json format
+ * 
+ */
+
+router.post("/update/:id", upload.single('img'), async (req, res) => {
+
+  const {  name, phone, country,img,Age,About } = req.body
+  if(req.file){
+
+    const resultt = await cloudinary.v2.uploader.upload(req.file.path)
+
+    let result = await user.findOneAndUpdate({ _id: req.params.id }, {  name:  name, phone: phone, country: country,img:resultt.secure_url ,Age:Age,About:About})
+    res.json("done")
+  }
+
+else{
+
+  let result = await user.findOneAndUpdate({ _id: req.params.id }, {  name:  name, phone: phone, country: country,Age:Age,About:About})
+  res.json("done")
+
+
+}
+})
+
+
+
+
+
+
+
+
 
 
 /**   

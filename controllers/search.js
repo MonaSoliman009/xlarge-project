@@ -19,23 +19,23 @@ var {
     var {categories}=require("../models/category")
 
 
-/**
- * @swagger
- * /xlarge/search/category/:categorey:
- *  get:
- *    description: Use to find a specific category posts
- *    parameters:
- *    -  name: name of category
- *       in: path
- *       description: "category name send in the url"
- *       required: true
- *       type: "string"
- *    responses:
- *      '400':
- *        description: category not found
- *      '200':
- *        description: A successful request with the data of category posts send in json format
- */
+// /**
+//  * @swagger
+//  * /xlarge/search/category/:categorey:
+//  *  get:
+//  *    description: Use to find a specific category posts
+//  *    parameters:
+//  *    -  name: name of category
+//  *       in: path
+//  *       description: "category name send in the url"
+//  *       required: true
+//  *       type: "string"
+//  *    responses:
+//  *      '400':
+//  *        description: category not found
+//  *      '200':
+//  *        description: A successful request with the data of category posts send in json format
+//  */
 
 
     

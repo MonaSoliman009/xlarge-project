@@ -47,7 +47,12 @@ var user = mongoose.model("user", new mongoose.Schema({
   post: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'post'
-  }   ]
+  }   ],
+  About:{
+    type: String,
+    maxlength: 150
+
+  }
 
 
 
@@ -60,7 +65,9 @@ function validateuser(useres) {
     password: joi.string().min(8).max(255).required(),
     phone: joi.string().min(11).max(14).required(),
     country: joi.string().max(15).required(),
-    Age: joi.string().max(2).required()
+    Age: joi.string().max(2).required(),
+    About: joi.string().max(150)
+
 
   };
   return joi.validate(useres, Schema)

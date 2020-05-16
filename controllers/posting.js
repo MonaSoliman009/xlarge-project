@@ -1008,4 +1008,85 @@ else{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+router.put('/like/:id', parseUrlencoded,(req, res) => {
+  // Check if id was passed provided in request body
+  if (!req.body.id) {
+    res.json({ success: false, message: 'No id was provided.' }); // Return error message
+  } else {
+    // Search the database with id
+    post.findOne({ _id: req.params.id }, (err, post) => {
+      // Check if error was encountered
+      if (err) {
+        res.json({ success: false, message: 'Invalid post id' }); // Return error message
+      } else {
+        // Check if id matched the id of a blog post in the database
+        if (!post) {
+          res.json({ success: false, message: 'That post was not found.' }); // Return error message
+        } else {
+          // Get data from user that is signed in
+          user.findOne({ _id: req.body.id }, (err, user) => {
+            // Check if error was found
+            if (err) {
+              res.json({ success: false, message: 'Something went wrong.' }); // Return error message
+            } else {
+              // Check if id of user in session was found in the database
+              if (!user) {
+                res.json({ success: false, message: 'Could not authenticate user.' }); // Return error message
+              } else {
+                // Check if user who liked post is the same user that originally created the blog post
+                if (user._id === post.createdby) {
+                  res.json({ success: false, messagse: 'Cannot like your own post.' }); // Return error message
+                } else {
+                  // Check if the user who liked the post has already liked the blog post before
+                  if (post.likedBy.includes(user._id)) {
+                    res.json({ success: false, message: 'You already liked this post.' }); // Return error message
+                  } else {
+                  
+                      post.likes++; // Incriment likes
+                      post.likedBy.push(user._id); // Add liker's username into array of likedBy
+                      // Save blog post
+                      post.save((err) => {
+                        if (err) {
+                          res.json({ success: false, message: 'Something went wrong.' }); // Return error message
+                        } else {
+                          res.json({ success: true, message: 'post liked!' }); // Return success message
+                        }
+                      });
+                    
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+});
+
+
+
+
+
+
+
+
 module.exports = router;
