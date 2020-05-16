@@ -651,11 +651,16 @@ router.delete("/delete/:id", function (req, resp) {
   resp.json("post deleted")
 })
 
+
+
+
+
+
   /**
  * @swagger
  * /xlarge/post/update/:id:
  *  post:
- *    description: Use to delete post
+ *    description: Use to update post
  *    parameters:
  *      - name: title
  *        description: updated Title of post
@@ -754,5 +759,253 @@ else{
 
 
 })
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/list/web/:id:
+ *  get:
+ *    description: Use to retrieve a specific category posts in web development with its id 
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+router.get("/list/web/:id", async (req, res) => {
+  let result = await web.find({_id:req.params.id}, function(data,err){
+ if(err){
+   res.status(400).json(err)
+ }
+else{
+  res.json(data)
+
+
+}
+  }).populate("post").exec(function(err,data){
+    if(err) console.log(err);
+    //this will log all of the users with each of their posts 
+  })
+  
+
+
+})
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/list/Competitiveprogramming/:id:
+ *  get:
+ *    description: Use to retrieve a specific category posts in Competitive programming with its id 
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+router.get("/list/Competitiveprogramming/:id", async (req, res) => {
+  let result = await competitive.find({_id:req.params.id}, function(data,err){
+ if(err){
+   res.status(400).json(err)
+ }
+else{
+  res.json(data)
+
+
+}
+  }).populate("post").exec(function(err,data){
+    if(err) console.log(err);
+    //this will log all of the users with each of their posts 
+  })
+  
+
+
+})
+
+
+
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/list/Opensource/:id:
+ *  get:
+ *    description: Use to retrieve a specific category posts in Open source with its id 
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+router.get("/list/Opensource/:id", async (req, res) => {
+  let result = await opensource.find({_id:req.params.id}, function(data,err){
+ if(err){
+   res.status(400).json(err)
+ }
+else{
+  res.json(data)
+
+
+}
+  }).populate("post").exec(function(err,data){
+    if(err) console.log(err);
+    //this will log all of the users with each of their posts 
+  })
+  
+
+
+})
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/list/Applicationdevelopment/:id:
+ *  get:
+ *    description: Use to retrieve a specific category posts in Application development with its id 
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+router.get("/list/Applicationdevelopment/:id", async (req, res) => {
+  let result = await android.find({_id:req.params.id}, function(data,err){
+ if(err){
+   res.status(400).json(err)
+ }
+else{
+  res.json(data)
+
+
+}
+  }).populate("post").exec(function(err,data){
+    if(err) console.log(err);
+    //this will log all of the users with each of their posts 
+  })
+  
+
+
+})
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/list/Machinelearning/:id:
+ *  get:
+ *    description: Use to retrieve a specific category posts in Machine learning with its id 
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+router.get("/list/Machinelearning/:id", async (req, res) => {
+  let result = await machine.find({_id:req.params.id}, function(data,err){
+ if(err){
+   res.status(400).json(err)
+ }
+else{
+  res.json(data)
+
+
+}
+  }).populate("post").exec(function(err,data){
+    if(err) console.log(err);
+    //this will log all of the users with each of their posts 
+  })
+  
+
+
+})
+
+
+  /**
+ * @swagger
+ * /xlarge/post/list/Datascience/:id:
+ *  get:
+ *    description: Use to retrieve a specific category posts in Data science with its id 
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+router.get("/list/Datascience/:id", async (req, res) => {
+  let result = await data.find({_id:req.params.id}, function(data,err){
+ if(err){
+   res.status(400).json(err)
+ }
+else{
+  res.json(data)
+
+
+}
+  }).populate("post").exec(function(err,data){
+    if(err) console.log(err);
+    //this will log all of the users with each of their posts 
+  })
+  
+
+
+})
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/list/Miscellaneousfields/:id:
+ *  get:
+ *    description: Use to retrieve a specific category posts in Miscellaneous fields with its id 
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+router.get("/list/Miscellaneousfields/:id", async (req, res) => {
+  let result = await testing.find({_id:req.params.id}, function(data,err){
+ if(err){
+   res.status(400).json(err)
+ }
+else{
+  res.json(data)
+
+
+}
+  }).populate("post").exec(function(err,data){
+    if(err) console.log(err);
+    //this will log all of the users with each of their posts 
+  })
+  
+
+
+})
+
+
+
+
+
+
+
+
 
 module.exports = router;
