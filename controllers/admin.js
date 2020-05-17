@@ -21,7 +21,7 @@ var {
 
 var {web,validateweb}=require("../models/web")
 var {android,validateandroid}=require("../models/Applicationdevelopment")
-
+var {post}=require("../models/post")
 var {testing,validatetesting}=require("../models/Miscellaneousfields")
 var {opensource,validateopensource}=require("../models/opensource")
 var {competitive,validatecompetitive}=require("../models/competitive")
@@ -971,5 +971,19 @@ router.post("/update/category/Opensource/:id",parseUrlencoded,function(req,res){
 
 })
 
+
+
+router.delete("/comment/delete/:id",parseUrlencoded,function(req,res){
+ 
+  post.findByIdAndUpdate(
+    req.body.id, { $pull: { "comments": { _id: req.params.id } } }, { safe: true, upsert: true },
+    function(err, data) {
+        if (err) { console.log(err) }
+        return res.status(200).json("done");
+    });
+
+
+ 
+})
 
 module.exports = router;

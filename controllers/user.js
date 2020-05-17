@@ -46,7 +46,7 @@ var {
     validateuser,
     user
   } = require("../models/user");
- 
+ var{post}=require("../models/post")
 
   /**
  * @swagger
@@ -229,7 +229,13 @@ else{
 
 
 
+// router.delete("/comment/delete/:id",parseUrlencoded,function(req,res){
 
+// post.find({""})
+
+
+ 
+// })
 
 
 
