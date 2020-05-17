@@ -726,7 +726,15 @@ else{
 
 
 router.get("/list", async (req, res) => {
-  let result = await post.find({});
+  let result = await post.find({}).populate({path:"likedBy , comments.commentator",model:"user"}
+  // ,{
+  //   path:"comments",
+  //   populate:{
+  //     path:"commentator",
+  //     model:"user"
+  //   }
+  )
+
   res.json(result)
 
 
@@ -746,7 +754,7 @@ router.get("/list", async (req, res) => {
  */
 
 router.get("/list/:id", async (req, res) => {
-  let result = await post.find({_id:req.params.id}, function(data,err){
+  let result = await post.findOne({_id:req.params.id}, function(data,err){
  if(err){
    res.status(400).json(err)
  }
@@ -755,7 +763,16 @@ else{
 
 
 }
-  });
+  }).populate({path:"likedBy , comments.commentator",
+
+    model:"user"
+  
+}).exec(function(err,data){
+  
+    if(err) console.log(err);
+    //this will log all of the users with each of their posts 
+  })
+
 
 
 })
@@ -785,7 +802,14 @@ else{
 
 
 }
-  }).populate("post").exec(function(err,data){
+  }).populate({path:"post",
+  populate:{
+    path:"likedBy , comments.commentator",
+    model:"user"
+  }
+
+}).exec(function(err,data){
+  
     if(err) console.log(err);
     //this will log all of the users with each of their posts 
   })
@@ -819,11 +843,17 @@ else{
 
 
 }
-  }).populate("post").exec(function(err,data){
+  }).populate({path:"post",
+  populate:{
+    path:"likedBy , comments.commentator",
+    model:"user"
+  }
+
+}).exec(function(err,data){
+  
     if(err) console.log(err);
     //this will log all of the users with each of their posts 
   })
-  
 
 
 })
@@ -856,7 +886,14 @@ else{
 
 
 }
-  }).populate("post").exec(function(err,data){
+  }).populate({path:"post",
+  populate:{
+    path:"likedBy , comments.commentator",
+    model:"user"
+  }
+
+}).exec(function(err,data){
+  
     if(err) console.log(err);
     //this will log all of the users with each of their posts 
   })
@@ -890,11 +927,17 @@ else{
 
 
 }
-  }).populate("post").exec(function(err,data){
+  }).populate({path:"post",
+  populate:{
+    path:"likedBy , comments.commentator",
+    model:"user"
+  }
+
+}).exec(function(err,data){
+  
     if(err) console.log(err);
     //this will log all of the users with each of their posts 
   })
-  
 
 
 })
@@ -924,7 +967,14 @@ else{
 
 
 }
-  }).populate("post").exec(function(err,data){
+  }).populate({path:"post",
+  populate:{
+    path:"likedBy , comments.commentator",
+    model:"user"
+  }
+
+}).exec(function(err,data){
+  
     if(err) console.log(err);
     //this will log all of the users with each of their posts 
   })
@@ -957,11 +1007,17 @@ else{
 
 
 }
-  }).populate("post").exec(function(err,data){
+  }).populate({path:"post",
+  populate:{
+    path:"likedBy , comments.commentator",
+    model:"user"
+  }
+
+}).exec(function(err,data){
+  
     if(err) console.log(err);
     //this will log all of the users with each of their posts 
   })
-  
 
 
 })
@@ -991,11 +1047,17 @@ else{
 
 
 }
-  }).populate("post").exec(function(err,data){
+  }).populate({path:"post",
+  populate:{
+    path:"likedBy , comments.commentator",
+    model:"user"
+  }
+
+}).exec(function(err,data){
+  
     if(err) console.log(err);
     //this will log all of the users with each of their posts 
   })
-  
 
 
 })

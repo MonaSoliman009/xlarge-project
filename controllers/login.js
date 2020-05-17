@@ -75,8 +75,8 @@ router.post('/', parseUrlencoded, async (req, res) => {
         })
         res.header("x_auth_token_admin", token).status(200).json({
           "token": token,
-          "admin": admins._id,
-          "name": "admin"
+          "id": admins._id,
+          "role": "admin"
         });
       }
 
@@ -105,8 +105,8 @@ router.post('/', parseUrlencoded, async (req, res) => {
       })
       res.header("x_auth_token_user", token).status(200).json({
         "token": token,
-        "user": users._id,
-        "name": "user"
+        "id": users._id,
+        "role": "user"
       });
     }
 

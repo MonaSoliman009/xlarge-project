@@ -97,6 +97,15 @@ post.find({"createdby":data[0]._id},function(err,data){
 
   resp.json(data);
 
+}).populate({
+  path:"likedBy , comments.commentator",
+  model:"user"
+
+
+}).exec(function(err,data){
+
+  if(err) console.log(err);
+  //this will log all of the users with each of their posts 
 })
 
 
