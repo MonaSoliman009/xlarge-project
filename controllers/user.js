@@ -229,11 +229,10 @@ else{
 
 
 
-// router.delete("/comment/delete/:id",parseUrlencoded,function(req,res){
+// router.delete("/comment/delete/:id",parseUrlencoded,async(req,res)=>{
 
-// post.find({""})
-
-
+//    let find_post=await post.find({_id:req.body.postid})
+//    console.log(find_post)
  
 // })
 

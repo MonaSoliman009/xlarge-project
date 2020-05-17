@@ -973,6 +973,27 @@ router.post("/update/category/Opensource/:id",parseUrlencoded,function(req,res){
 
 
 
+  /**
+ * @swagger
+ * /xlarge/admin/comment/delete/:id:
+ *  delete:
+ *    description: Use to delete  any comment
+ *    parameters:
+ *      - name: id
+ *        description: id for the post
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: string
+ *    responses:
+ *      '200':
+ *        description: category is deleted successfully
+ * 
+ */
+
+
+
+
 router.delete("/comment/delete/:id",parseUrlencoded,function(req,res){
  
   post.findByIdAndUpdate(
