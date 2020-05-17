@@ -70,7 +70,12 @@ var post = mongoose.model("post", new mongoose.Schema({
       comment: { type: String, validate: commentValidators },
       commentator: {  type: mongoose.Schema.Types.ObjectId,
         ref: 'user' }
-    }]
+    }],
+    isapproved:{
+       type:Boolean,
+       default:false
+
+    }
  
 
  

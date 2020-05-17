@@ -229,15 +229,48 @@ else{
 
 
 
-// router.delete("/comment/delete/:id",parseUrlencoded,async(req,res)=>{
-
-//    let find_post=await post.find({_id:req.body.postid})
-//    console.log(find_post)
+router.delete("/comment/delete/:id",parseUrlencoded,async(req,res)=>{
  
-// })
+  post.findByIdAndUpdate(
+    req.body.postid, { $pull: { "comments": {commentator: req.body.userid,_id:req.params.id } } }, { safe: true, upsert: true },
+    function(err, data) {
+        if (err) { console.log(err) }
+        return res.status(200).json("done");
+    });
+
+ 
+});
 
 
 
+
+
+router.post("/comment/update/:id",parseUrlencoded,async(req,res)=>{
+ 
+  post.findByIdAndUpdate(
+    req.body.postid, { $pull: { "comments": {commentator: req.body.userid,_id:req.params.id } } }, { safe: true, upsert: true },
+    function(err, data) {
+        if (err) { console.log(err) }
+        return res.status(200).json("done");
+    });
+
+ 
+})
+
+
+router.get("/list/posts/:id",function(req,res){
+
+  post.find({createdby:req.params.id, isapproved:true},function(err,data){
+    if(err){
+      res.json(err)
+    }
+    else{
+      res.json(data)
+    }
+  })
+  
+  
+  })
 
 
 /**   
@@ -301,6 +334,12 @@ else{
 *        type: "object"
 *      img:
 *        type:"string"
+*      likes:
+*        type:"number"
+*      likedBy:
+*        type:"array"
+*      comments:
+*        type:"array"
 *    xml:
 *      name: "post"
 *  categories:

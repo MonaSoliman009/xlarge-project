@@ -631,24 +631,24 @@ router.post("/create/Miscellaneousfields", upload.single('img'), async (req, res
  * @swagger
  * /xlarge/post/delete/post/:id:
  *  delete:
- *    description: Use to delete post
+ *    description: Use to make user delete his post
  *    responses:
  *      '200':
  *        description: post is deleted successfully
  * 
  */
 
-router.delete("/delete/:id", function (req, resp) {
+router.delete("/delete/:id",parseUrlencoded, function (req, res) {
 
-  mongoose.model("post").findOneAndRemove({
-    _id: req.params.id
-  },
-    function (err, data) {
-      if (!err) {
-      }
-    })
-
-  resp.json("post deleted")
+  user.findByIdAndUpdate(
+    req.body.userid, { $pull: { "post": req.params.id } }, { safe: true, upsert: true },
+    function(err, data) {
+        if (err) { console.log(err) }
+       post.findByIdAndDelete(req.params.id, (err, user) => {
+        })
+      
+        return res.status(200).json("done");
+    });
 })
 
 
@@ -726,7 +726,7 @@ else{
 
 
 router.get("/list", async (req, res) => {
-  let result = await post.find({}).populate({path:"likedBy , comments.commentator",model:"user"}
+  let result = await post.find({isapproved:true}).populate({path:"likedBy , comments.commentator",model:"user"}
   // ,{
   //   path:"comments",
   //   populate:{
@@ -793,7 +793,7 @@ else{
  */
 
 router.get("/list/web/:id", async (req, res) => {
-  let result = await web.find({_id:req.params.id}, function(data,err){
+  let result = await web.find({_id:req.params.id,isapproved:true}, function(data,err){
  if(err){
    res.status(400).json(err)
  }
@@ -834,7 +834,7 @@ else{
  */
 
 router.get("/list/Competitiveprogramming/:id", async (req, res) => {
-  let result = await competitive.find({_id:req.params.id}, function(data,err){
+  let result = await competitive.find({_id:req.params.id, isapproved:true}, function(data,err){
  if(err){
    res.status(400).json(err)
  }
@@ -877,7 +877,7 @@ else{
  */
 
 router.get("/list/Opensource/:id", async (req, res) => {
-  let result = await opensource.find({_id:req.params.id}, function(data,err){
+  let result = await opensource.find({_id:req.params.id, isapproved:true}, function(data,err){
  if(err){
    res.status(400).json(err)
  }
@@ -918,7 +918,7 @@ else{
  */
 
 router.get("/list/Applicationdevelopment/:id", async (req, res) => {
-  let result = await android.find({_id:req.params.id}, function(data,err){
+  let result = await android.find({_id:req.params.id, isapproved:true}, function(data,err){
  if(err){
    res.status(400).json(err)
  }
@@ -958,7 +958,7 @@ else{
  */
 
 router.get("/list/Machinelearning/:id", async (req, res) => {
-  let result = await machine.find({_id:req.params.id}, function(data,err){
+  let result = await machine.find({_id:req.params.id, isapproved:true}, function(data,err){
  if(err){
    res.status(400).json(err)
  }
@@ -998,7 +998,7 @@ else{
  */
 
 router.get("/list/Datascience/:id", async (req, res) => {
-  let result = await data.find({_id:req.params.id}, function(data,err){
+  let result = await data.find({_id:req.params.id, isapproved:true}, function(data,err){
  if(err){
    res.status(400).json(err)
  }
@@ -1038,7 +1038,7 @@ else{
  */
 
 router.get("/list/Miscellaneousfields/:id", async (req, res) => {
-  let result = await testing.find({_id:req.params.id}, function(data,err){
+  let result = await testing.find({_id:req.params.id, isapproved:true}, function(data,err){
  if(err){
    res.status(400).json(err)
  }

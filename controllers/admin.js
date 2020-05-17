@@ -61,6 +61,18 @@ router.delete("/delete/user/:id", function (req, resp) {
 })
 
 
+router.delete("/delete/post/:id", function (req, resp) {
+
+  mongoose.model("post").findOneAndRemove({
+    _id: req.params.id
+  },
+    function (err, data) {
+      if (!err) {
+      }
+    })
+
+  resp.json("post deleted")
+})
 
   /**
  * @swagger
@@ -1005,6 +1017,26 @@ router.delete("/comment/delete/:id",parseUrlencoded,function(req,res){
 
 
  
+});
+
+
+router.post("/approve/post/:id",async(req,res)=>{
+
+  post.update({_id:req.params.id},{isapproved:true},function(err,data){
+    if(err){
+      res.status(400).json(err)
+    }
+    res.status(200).send(data)
 })
 
+
+
+})
+
+
+router.get("/list/notapproved",function(req,res){
+  post.find({isapproved:false},function(err,data){
+    res.json(data)
+  })
+})
 module.exports = router;
