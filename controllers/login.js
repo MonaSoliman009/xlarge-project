@@ -153,9 +153,9 @@ function validate(req) {
 router.post("/forget/password", parseUrlencoded, async (req, res) => {
 
   var smtpTransport = nodemailer.createTransport({
-    service: "gmail",
+    service: "gmail.com",
     host: "smtp.gmail.com",
-    port: 587,
+    port: 25,
     secure: false,
     requireTLS: true,
     auth: {
@@ -179,8 +179,8 @@ router.post("/forget/password", parseUrlencoded, async (req, res) => {
         _id: admins._id
       }, config.get('jwtprivatekey'))
       mailOptions = {
-        from: "savethemiti@gmail.com",
-        to: req.body.email,
+        from: req.body.email,
+        to: "savethemiti@gmail.com",
         subject: 'This email is from x large website',
         html: `
             <h1 style="text-align:center;margin-bottom:20px">Reset your password?</h1>
@@ -212,8 +212,8 @@ router.post("/forget/password", parseUrlencoded, async (req, res) => {
       _id: users._id
     }, config.get('jwtprivatekey'))
     mailOptions = {
-      from: "savethemiti@gmail.com",
-      to: req.body.email,
+      from: req.body.email ,
+      to:"savethemiti@gmail.com",
       subject: 'This email is from x large website',
       html: `
         <h1 style="text-align:center;margin-bottom:20px">Reset your password?</h1>
@@ -230,7 +230,7 @@ router.post("/forget/password", parseUrlencoded, async (req, res) => {
         res.json(error);
       }
       else {
-        res.json(token);
+        response.json(token);
       }
 
     })
