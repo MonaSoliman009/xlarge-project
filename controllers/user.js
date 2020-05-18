@@ -264,13 +264,13 @@ router.delete("/comment/delete/:id",parseUrlencoded,async(req,res)=>{
 // router.post("/comment/update/:id",parseUrlencoded,async(req,res)=>{
 
 
-//   post.update(
-//     { "comments.comment.commentator": req.body.userid },
-//     { "$push": { "comments.$.comment": req.body.comment } },
-//     function(err,numAffected) {
-// res.json("done")
-//     }
-// );
+//   post.findOne(
+//     {
+//         _id: req.body.postid,"comments.commentator":req.body.userid
+//   },function(err,data){
+//     console.log(data.comments)
+    
+//   }).select()
 // })
 
   /**
