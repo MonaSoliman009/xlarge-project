@@ -1170,6 +1170,9 @@ router.put('/like/:id', parseUrlencoded,(req, res) => {
  *      - name: id
  *        description: user id 
  *        required: true
+  *      - name: comment
+ *        description: comment
+ *        required: true
  *        schema:
  *          type: string
  *          format: string

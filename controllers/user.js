@@ -372,13 +372,13 @@ router.get("/list/posts/:id",function(req,res){
 *      createdby:
 *        type: "object"
 *      img:
-*        type:"string"
+*        type: "string"
 *      likes:
-*        type:"number"
+*        type: "number"
 *      likedBy:
-*        type:"array"
+*        type: "array"
 *      comments:
-*        type:"array"
+*        type: "array"
 *    xml:
 *      name: "post"
 *  categories:
