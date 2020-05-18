@@ -57,7 +57,6 @@ var {
  *    -  in: body
  *       name: body
  *       description: "create new user"
- *       required: true
  *       schema:
  *         $ref: "#/definitions/user"
  *    responses:
@@ -227,7 +226,26 @@ else{
 })
 
 
-
+  /**
+ * @swagger
+ * /xlarge/user/comment/delete/:id:
+ *  delete:
+ *    description: Used to make user delete his comment, the id for the comment in url
+ *    parameters:
+ *      - name: postid
+ *        description: id for the post
+ *        required: true
+ *      - name: userid
+ *        description: id for the user
+ *        required: true
+ *        schema:
+ *          type: string
+ *          format: string
+ *    responses:
+ *      '200':
+ *        description: category is deleted successfully
+ * 
+ */
 
 router.delete("/comment/delete/:id",parseUrlencoded,async(req,res)=>{
  
@@ -243,20 +261,30 @@ router.delete("/comment/delete/:id",parseUrlencoded,async(req,res)=>{
 
 
 
+// router.post("/comment/update/:id",parseUrlencoded,async(req,res)=>{
 
 
-router.post("/comment/update/:id",parseUrlencoded,async(req,res)=>{
- 
-  post.findByIdAndUpdate(
-    req.body.postid, { $pull: { "comments": {commentator: req.body.userid,_id:req.params.id } } }, { safe: true, upsert: true },
-    function(err, data) {
-        if (err) { console.log(err) }
-        return res.status(200).json("done");
-    });
+//   post.update(
+//     { "comments.comment.commentator": req.body.userid },
+//     { "$push": { "comments.$.comment": req.body.comment } },
+//     function(err,numAffected) {
+// res.json("done")
+//     }
+// );
+// })
 
- 
-})
-
+  /**
+ * @swagger
+ * /xlarge/user/list/posts/:id:
+ *  get:
+ *    description: Used to retrieve the posts for the user 
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the posts send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
 
 router.get("/list/posts/:id",function(req,res){
 
@@ -267,6 +295,15 @@ router.get("/list/posts/:id",function(req,res){
     else{
       res.json(data)
     }
+  }).populate({
+    path:"likedBy , comments.commentator",
+    model:"user"
+  
+
+}).exec(function(err,data){
+  
+    if(err) console.log(err);
+    //this will log all of the users with each of their posts 
   })
   
   
@@ -287,7 +324,7 @@ router.get("/list/posts/:id",function(req,res){
 *    - "Age"
 *    properties:
 *      name:
-*        type: "String"
+*        type: "string"
 *      email:
 *        type: "string"
 *      password:
@@ -299,6 +336,8 @@ router.get("/list/posts/:id",function(req,res){
 *      country:
 *        type: "string"
 *      Age:
+*        type: "string"
+*      About:
 *        type: "string"
 *    xml:
 *      name: "user"

@@ -629,9 +629,12 @@ router.post("/create/Miscellaneousfields", upload.single('img'), async (req, res
 
   /**
  * @swagger
- * /xlarge/post/delete/post/:id:
+ * /xlarge/post/delete/:id:
  *  delete:
  *    description: Use to make user delete his post
+ *    parameters:
+ *       name: userid
+ *       description: "user id "
  *    responses:
  *      '200':
  *        description: post is deleted successfully
@@ -783,7 +786,7 @@ else{
  * @swagger
  * /xlarge/post/list/web/:id:
  *  get:
- *    description: Use to retrieve a specific category posts in web development with its id 
+ *    description: Use to retrieve a specific category posts in web development with its id , the id of category in url
  *    responses:
  *      '200':
  *        description: A successful request with the data of the post send in json format
@@ -793,7 +796,7 @@ else{
  */
 
 router.get("/list/web/:id", async (req, res) => {
-  let result = await web.find({_id:req.params.id,isapproved:true}, function(data,err){
+  let result = await post.find({category:req.params.id,isapproved:true}, function(data,err){
  if(err){
    res.status(400).json(err)
  }
@@ -802,11 +805,10 @@ else{
 
 
 }
-  }).populate({path:"post",
-  populate:{
+  }).populate({
     path:"likedBy , comments.commentator",
     model:"user"
-  }
+  
 
 }).exec(function(err,data){
   
@@ -824,7 +826,7 @@ else{
  * @swagger
  * /xlarge/post/list/Competitiveprogramming/:id:
  *  get:
- *    description: Use to retrieve a specific category posts in Competitive programming with its id 
+ *    description: Use to retrieve a specific category posts in Competitive programming with its id , the id of category in url
  *    responses:
  *      '200':
  *        description: A successful request with the data of the post send in json format
@@ -834,7 +836,7 @@ else{
  */
 
 router.get("/list/Competitiveprogramming/:id", async (req, res) => {
-  let result = await competitive.find({_id:req.params.id, isapproved:true}, function(data,err){
+  let result = await post.find({category:req.params.id, isapproved:true}, function(data,err){
  if(err){
    res.status(400).json(err)
  }
@@ -843,12 +845,10 @@ else{
 
 
 }
-  }).populate({path:"post",
-  populate:{
+  }).populate({
     path:"likedBy , comments.commentator",
     model:"user"
-  }
-
+  
 }).exec(function(err,data){
   
     if(err) console.log(err);
@@ -867,7 +867,7 @@ else{
  * @swagger
  * /xlarge/post/list/Opensource/:id:
  *  get:
- *    description: Use to retrieve a specific category posts in Open source with its id 
+ *    description: Use to retrieve a specific category posts in Open source with its id , the id of category in url
  *    responses:
  *      '200':
  *        description: A successful request with the data of the post send in json format
@@ -877,7 +877,7 @@ else{
  */
 
 router.get("/list/Opensource/:id", async (req, res) => {
-  let result = await opensource.find({_id:req.params.id, isapproved:true}, function(data,err){
+  let result = await post.find({category:req.params.id, isapproved:true}, function(data,err){
  if(err){
    res.status(400).json(err)
  }
@@ -886,11 +886,10 @@ else{
 
 
 }
-  }).populate({path:"post",
-  populate:{
+  }).populate({
     path:"likedBy , comments.commentator",
     model:"user"
-  }
+ 
 
 }).exec(function(err,data){
   
@@ -918,7 +917,7 @@ else{
  */
 
 router.get("/list/Applicationdevelopment/:id", async (req, res) => {
-  let result = await android.find({_id:req.params.id, isapproved:true}, function(data,err){
+  let result = await post.find({category:req.params.id, isapproved:true}, function(data,err){
  if(err){
    res.status(400).json(err)
  }
@@ -927,12 +926,10 @@ else{
 
 
 }
-  }).populate({path:"post",
-  populate:{
+  }).populate({
     path:"likedBy , comments.commentator",
     model:"user"
-  }
-
+  
 }).exec(function(err,data){
   
     if(err) console.log(err);
@@ -958,7 +955,7 @@ else{
  */
 
 router.get("/list/Machinelearning/:id", async (req, res) => {
-  let result = await machine.find({_id:req.params.id, isapproved:true}, function(data,err){
+  let result = await post.find({category:req.params.id, isapproved:true}, function(data,err){
  if(err){
    res.status(400).json(err)
  }
@@ -967,11 +964,10 @@ else{
 
 
 }
-  }).populate({path:"post",
-  populate:{
+  }).populate({
     path:"likedBy , comments.commentator",
     model:"user"
-  }
+  
 
 }).exec(function(err,data){
   
@@ -998,7 +994,7 @@ else{
  */
 
 router.get("/list/Datascience/:id", async (req, res) => {
-  let result = await data.find({_id:req.params.id, isapproved:true}, function(data,err){
+  let result = await post.find({_id:req.params.id, isapproved:true}, function(data,err){
  if(err){
    res.status(400).json(err)
  }
@@ -1007,11 +1003,10 @@ else{
 
 
 }
-  }).populate({path:"post",
-  populate:{
+  }).populate({
     path:"likedBy , comments.commentator",
     model:"user"
-  }
+  
 
 }).exec(function(err,data){
   
@@ -1038,7 +1033,7 @@ else{
  */
 
 router.get("/list/Miscellaneousfields/:id", async (req, res) => {
-  let result = await testing.find({_id:req.params.id, isapproved:true}, function(data,err){
+  let result = await post.find({category:req.params.id, isapproved:true}, function(data,err){
  if(err){
    res.status(400).json(err)
  }
@@ -1047,11 +1042,10 @@ else{
 
 
 }
-  }).populate({path:"post",
-  populate:{
+  }).populate({
     path:"likedBy , comments.commentator",
     model:"user"
-  }
+  
 
 }).exec(function(err,data){
   
@@ -1081,7 +1075,7 @@ else{
   /**
  * @swagger
  * /xlarge/post/like/:id:
- *  post:
+ *  put:
  *    description: Use to Add like with the id of the post in url
  *    parameters:
  *      - name: id

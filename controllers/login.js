@@ -159,10 +159,10 @@ router.post("/forget/password", parseUrlencoded, async (req, res) => {
     secure: false,
     requireTLS: true,
     auth: {
-      user: "savethemiti@gmail.com",
-      pass: "123456789@@"
+        user: "savethemiti@gmail.com",
+        pass: "2020 mona@@"
     }
-  });
+});
 
 
 

@@ -38,7 +38,7 @@ var {data,validatedata}=require("../models/datascience")
  * @swagger
  * /xlarge/admin/delete/user/:id:
  *  delete:
- *    description: Use to delete post
+ *    description: Use to delete user
  *    responses:
  *      '200':
  *        description: user is deleted successfully
@@ -59,6 +59,18 @@ router.delete("/delete/user/:id", function (req, resp) {
 
   resp.json("user deleted")
 })
+
+
+  /**
+ * @swagger
+ * /xlarge/admin/delete/post/:id:
+ *  delete:
+ *    description: Use to delete post
+ *    responses:
+ *      '200':
+ *        description: post is deleted successfully
+ * 
+ */
 
 
 router.delete("/delete/post/:id", function (req, resp) {
@@ -766,7 +778,7 @@ router.delete("/delete/category/Opensource/:id", function (req, resp) {
       }
     })
 
-  resp.json("Data Open sourcedeleted")
+  resp.json("Data Open source sourcedeleted")
 })
 
 
@@ -1019,6 +1031,19 @@ router.delete("/comment/delete/:id",parseUrlencoded,function(req,res){
  
 });
 
+  /**
+ * @swagger
+ * /xlarge/admin/approve/post/:id:
+ *  post:
+ *    description: Use to approve post
+ *    responses:
+ *      '200':
+ *        description: data of the approved successfully
+ *      '400':
+ *        description: error
+ * 
+ */
+
 
 router.post("/approve/post/:id",async(req,res)=>{
 
@@ -1033,7 +1058,16 @@ router.post("/approve/post/:id",async(req,res)=>{
 
 })
 
-
+ /**
+ * @swagger
+ * /xlarge/admin/list/notapproved:
+ *  get:
+ *    description: Use to retrieve All not approved posts 
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of all not approved posts 
+ * 
+ */
 router.get("/list/notapproved",function(req,res){
   post.find({isapproved:false},function(err,data){
     res.json(data)
