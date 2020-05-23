@@ -261,6 +261,23 @@ router.delete("/comment/delete/:id",parseUrlencoded,async(req,res)=>{
 
 
 
+  /**
+ * @swagger
+* /xlarge/user/comment/update/:id:
+ *  post:
+ *    description: Use to update  a specific comment in post , putting the id of the comment in the url
+ *    parameters:
+ *      - name: comment
+ *        description: the new comment
+ *        required: true
+ *    responses:
+ *      '200':
+ *        description: comment is updated successfully 
+ */
+
+
+
+
 router.post("/comment/update/:id",parseUrlencoded,async(req,res)=>{
 
 
