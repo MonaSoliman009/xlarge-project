@@ -1071,6 +1071,6 @@ router.post("/approve/post/:id",admin ,async(req,res)=>{
 router.get("/list/notapproved",admin ,function(req,res){
   post.find({isapproved:false},function(err,data){
     res.json(data)
-  })
+  }).populate("createdby")
 })
 module.exports = router;
