@@ -182,6 +182,59 @@ router.post("/add/admin",adminauth,  upload.single('img'),parseUrlencoded, async
   }
 });
 
+
+
+
+
+
+
+  /**
+ * @swagger
+ * /xlarge/admin/delete/admin/:id:
+ *  delete:
+ *    description: Use to delete admin
+ *    responses:
+ *      '200':
+ *        description: user is deleted successfully
+ * 
+ */
+
+
+
+router.delete("/delete/admin/:id", adminauth,function (req, resp) {
+
+  mongoose.model("admin").findOneAndRemove({
+    _id: req.params.id
+  },
+    function (err, data) {
+      if (!err) {
+      }
+    })
+
+  resp.json("admin deleted")
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /**
  * @swagger
  * /xlarge/admin/account/:id:
