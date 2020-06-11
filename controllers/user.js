@@ -64,7 +64,7 @@ var {
  *      '400':
  *        description: something went wrong || user already registered
  *      '200':
- *        description: A successful request with the data of this new user send in json format
+ *        description: A successful request with the data of this new user send in json format with the token 
  * 
  */
 

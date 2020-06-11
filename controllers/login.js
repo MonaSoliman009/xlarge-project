@@ -254,9 +254,9 @@ router.post("/forget/password", parseUrlencoded, async (req, res) => {
  *  post:
  *    description: Use to reset his password after redirect him from his e.mail
  *    parameters:
- *    -  name: email
+ *    -  name: id
  *       in: query
- *       description: "user email for reset"
+ *       description: "user id for reset"
  *       required: true
  *       type: "string"
  *    -  name: password
