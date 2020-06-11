@@ -3,6 +3,12 @@ var mongoose = require('mongoose');
 var joi = require("joi");
 
 var admin = mongoose.model("admin", new mongoose.Schema({
+    name: {
+    type: String,
+    required: true,
+    max: 25
+
+  },
   email: {
     type: String,
     required: true,
@@ -16,11 +22,17 @@ var admin = mongoose.model("admin", new mongoose.Schema({
     required: true,
     minlength: 6,
   }
+  ,
+  img: {
+    type: String,
+    default:"https://res.cloudinary.com/ddo2kzwbh/image/upload/v1589435461/default_byzopq.jpg"
+  }
 }));
 
 
 function validateadmin(admin) {
   var Schema = {
+    name: joi.string().min(5).max(25).required(),
     password: joi.string().min(6).required(),
     email: joi.string().max(255).email().required(),
 

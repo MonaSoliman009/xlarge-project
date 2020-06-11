@@ -383,6 +383,8 @@ router.get("/list/posts/:id",auth,function(req,res){
 *    required:
 *    - "email"
 *    - "password"
+*    - "name"
+*    - "img"
 *    properties:
 *      email:
 *        type: "string"
