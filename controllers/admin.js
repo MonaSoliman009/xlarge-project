@@ -295,7 +295,7 @@ router.get("/user/list",adminauth, async (req, res) => {
  * @swagger
  * /xlarge/admin/admin/list:
  *  get:
- *    description: Use to retrieve All Users  
+ *    description: Use to retrieve All admins  
  *    responses:
  *      '200':
  *        description: A successful request with the data of all users send in json format
