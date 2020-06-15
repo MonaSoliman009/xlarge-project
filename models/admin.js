@@ -26,6 +26,10 @@ var admin = mongoose.model("admin", new mongoose.Schema({
   img: {
     type: String,
     default:"https://res.cloudinary.com/ddo2kzwbh/image/upload/v1589435461/default_byzopq.jpg"
+  },
+  owner:{
+    type:Boolean,
+    default:false
   }
 }));
 

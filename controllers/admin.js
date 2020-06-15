@@ -205,13 +205,19 @@ router.delete("/delete/admin/:id", adminauth,function (req, resp) {
 
   mongoose.model("admin").findOneAndRemove({
     _id: req.params.id
-  },
+ ,owner:false},
     function (err, data) {
-      if (!err) {
+      if (data) {
+        resp.json("admin deleted")
+
+      }
+      else {
+        resp.json("admin cannot deleted")
+
       }
     })
 
-  resp.json("admin deleted")
+  
 })
 
 

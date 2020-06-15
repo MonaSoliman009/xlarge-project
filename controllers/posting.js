@@ -54,7 +54,8 @@ var {testing,validatetesting}=require("../models/Miscellaneousfields")
 var {opensource,validateopensource}=require("../models/opensource")
 var {competitive,validatecompetitive}=require("../models/competitive")
 var {machine,validatemachine}=require("../models/machinelearning")
-var {data,validatedata}=require("../models/datascience")
+var {data,validatedata}=require("../models/datascience");
+const { func } = require("joi");
   /**
  * @swagger
  * /xlarge/post/create/web:
@@ -912,12 +913,278 @@ router.put("/list/:id", async (req, res) => {
   //this will log all of the users with each of their posts 
 })
   
-
-
-
-  
-  
 })
+
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/list/web:
+ *  get:
+ *    description: Use to retrieve all posts in web development 
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+
+
+
+
+
+
+router.get("/list/web", async (req, res) => {
+  let arr1=[];
+let result = await web.find({}).populate({path:"post",
+   populate: [{path:"likedBy , comments.commentator , createdby",
+
+  model:"user"
+
+},{path:"category",
+
+model:"web"
+
+}]})
+for(let i=0;i<result.length;i++){
+  if(result[i].post.length != 0){
+
+  arr1.push(result[i].post)
+  }
+
+}
+
+res.json(arr1)
+});
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/list/Applicationdevelopment:
+ *  get:
+ *    description: Use to retrieve all posts in Application development
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+router.get("/list/Applicationdevelopment", async (req, res) => {
+  let arr1=[];
+let result = await android.find({}).populate({path:"post",
+   populate: [{path:"likedBy , comments.commentator , createdby",
+
+  model:"user"
+
+},{path:"category",
+
+model:"android"
+
+}]})
+for(let i=0;i<result.length;i++){
+if(result[i].post.length != 0){
+  arr1.push(result[i].post)
+
+
+}
+}
+res.json(arr1)
+})
+
+
+  /**
+ * @swagger
+ * /xlarge/post/list/Competitiveprogramming:
+ *  get:
+ *    description: Use to retrieve all posts in Competitive programming
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+router.get("/list/Competitiveprogramming", async (req, res) => {
+  let arr1=[];
+let result = await competitive.find({}).populate({path:"post",
+   populate: [{path:"likedBy , comments.commentator , createdby",
+
+  model:"user"
+
+},{path:"category",
+
+model:"competitive"
+
+}]})
+for(let i=0;i<result.length;i++){
+if(result[i].post.length != 0){
+  arr1.push(result[i].post)
+
+
+}
+}
+res.json(arr1)
+})
+
+
+
+  /**
+ * @swagger
+ * /xlarge/post/list/Miscellaneousfields:
+ *  get:
+ *    description: Use to retrieve all posts in Miscellaneous fields
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+
+
+router.get("/list/Miscellaneousfields", async (req, res) => {
+  let arr1=[];
+let result = await testing.find({}).populate({path:"post",
+   populate: [{path:"likedBy , comments.commentator , createdby",
+
+  model:"user"
+
+},{path:"category",
+
+model:"testing"
+
+}]})
+for(let i=0;i<result.length;i++){
+if(result[i].post.length != 0){
+  arr1.push(result[i].post)
+
+
+}
+}
+res.json(arr1)
+})
+
+  /**
+ * @swagger
+ * /xlarge/post/list/Datascience:
+ *  get:
+ *    description: Use to retrieve all posts in Data science
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+
+
+router.get("/list/Datascience", async (req, res) => {
+  let arr1=[];
+let result = await data.find({}).populate({path:"post",
+   populate: [{path:"likedBy , comments.commentator , createdby",
+
+  model:"user"
+
+},{path:"category",
+
+model:"data"
+
+}]})
+for(let i=0;i<result.length;i++){
+if(result[i].post.length != 0){
+  arr1.push(result[i].post)
+
+
+}
+}
+res.json(arr1)
+})
+
+
+  /**
+ * @swagger
+ * /xlarge/post/list/Machinelearning:
+ *  get:
+ *    description: Use to retrieve all posts in Machine learning
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+router.get("/list/Machinelearning", async (req, res) => {
+  let arr1=[];
+let result = await machine.find({}).populate({path:"post",
+   populate: [{path:"likedBy , comments.commentator , createdby",
+
+  model:"user"
+
+},{path:"category",
+
+model:"machine"
+
+}]})
+for(let i=0;i<result.length;i++){
+if(result[i].post.length != 0){
+  arr1.push(result[i].post)
+
+
+}
+}
+res.json(arr1)
+})
+
+
+  /**
+ * @swagger
+ * /xlarge/post/list/Opensource:
+ *  get:
+ *    description: Use to retrieve all posts in Open source
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of the post send in json format
+ *      '400':
+ *        description: error in retrieving the post
+ * 
+ */
+
+
+
+router.get("/list/Opensource", async (req, res) => {
+  let arr1=[];
+let result = await opensource.find({}).populate({path:"post",
+   populate: [{path:"likedBy , comments.commentator , createdby",
+
+  model:"user"
+
+},{path:"category",
+
+model:"opensource"
+
+}]})
+for(let i=0;i<result.length;i++){
+if(result[i].post.length != 0){
+  arr1.push(result[i].post)
+
+
+}
+}
+res.json(arr1)
+})
+
+
+
 
 
 
