@@ -281,6 +281,52 @@ router.get("/user/list",adminauth, async (req, res) => {
 });
 
 
+
+
+
+
+
+
+
+
+
+
+  /**
+ * @swagger
+ * /xlarge/admin/admin/list:
+ *  get:
+ *    description: Use to retrieve All Users  
+ *    responses:
+ *      '200':
+ *        description: A successful request with the data of all users send in json format
+ * 
+ */
+
+
+router.get("/admin/list",adminauth, async (req, res) => {
+  let result = await admin.find({});
+  res.json(result)
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /**
  * @swagger
  * /xlarge/admin/add/category/web:

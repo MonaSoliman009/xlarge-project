@@ -886,7 +886,7 @@ router.get("/list", async (req, res) => {
   /**
  * @swagger
  * /xlarge/post/list/:id:
- *  get:
+ *  put:
  *    description: Use to retrieve a specific post with its id 
  *    responses:
  *      '200':
@@ -896,28 +896,27 @@ router.get("/list", async (req, res) => {
  * 
  */
 
-router.get("/list/:id", async (req, res) => {
-  let result = await post.findOne({_id:req.params.id}, function(data,err){
- if(err){
-   res.status(400).json(err)
- }
-else{
-  res.json(data)
+router.put("/list/:id", async (req, res) => {
 
-
-}
-  }).populate({path:"likedBy , comments.commentator , createdby",
-
-    model:"user"
   
+  let result = await post.findOneAndUpdate({ _id: req.params.id }, {$inc : {'views' : 1}}).populate(
+    {path:"likedBy , comments.commentator , createdby",
+
+  model:"user"
+
 }).exec(function(err,data){
+
+  if(err) console.log(err);
+
+ else res.json(data)
+  //this will log all of the users with each of their posts 
+})
   
-    if(err) console.log(err);
-    //this will log all of the users with each of their posts 
-  })
 
 
 
+  
+  
 })
 
 
@@ -1360,6 +1359,7 @@ router.post('/comment/:id',auth, parseUrlencoded,(req, res) => {
                     comment: req.body.comment, // Comment field
                     commentator: user._id // Person who commented
                   });
+                  post.commentsnum++;
                   // Save blog post
                   post.save((err) => {
                     // Check if error was found
