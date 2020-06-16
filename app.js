@@ -6,6 +6,7 @@ var config = require("config");
 var helmet = require("helmet");
 var xss = require("xss-clean");
 var mongosanatize = require("express-mongo-sanitize");
+var random = require('mongoose-random');
 
 var hpp = require("hpp");
 var ratelimit = require("express-rate-limit");
