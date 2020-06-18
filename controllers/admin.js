@@ -252,7 +252,7 @@ router.delete("/delete/admin/:id", adminauth,function (req, resp) {
  * 
  */
 
-router.get("/account/:id", adminauth,async (req, res) => {
+router.get("/account/:id",async (req, res) => {
 
   let adminspec = await admin.findOne({
     _id: req.params.id
