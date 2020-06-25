@@ -167,7 +167,7 @@ var {
  *      '200':
  *        description: A successful request with the data of user send in json format
  */
-  router.get("/account/:id",auth, async (req, res) => {
+  router.get("/account/:id", async (req, res) => {
 
     let user_account = await user.findOne({
       _id: req.params.id
