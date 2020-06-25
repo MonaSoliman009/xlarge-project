@@ -5,6 +5,7 @@ var categories = mongoose.model("categories", new mongoose.Schema({
 
     name:{
         type:String,
+        unique: true
     } ,
     post: [{
         type: mongoose.Schema.Types.ObjectId,

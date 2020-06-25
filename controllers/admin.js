@@ -152,7 +152,8 @@ router.post("/add/admin",adminauth,  upload.single('img'),parseUrlencoded, async
     password: req.body.password,
     email: req.body.email,
     name:req.body.name,
-    img:result.secure_url
+    img:result.secure_url,
+    phone:req.body.phone
 
   });
   var salt = await bcrypt.genSalt(5);
@@ -168,6 +169,8 @@ router.post("/add/admin",adminauth,  upload.single('img'),parseUrlencoded, async
     password: req.body.password,
     email: req.body.email,
     name:req.body.name,
+    phone:req.body.phone
+
 
   });
   var salt = await bcrypt.genSalt(5);
@@ -346,6 +349,11 @@ router.get("/admin/list",adminauth, async (req, res) => {
  *        schema:
  *          type: string
  *          format: string
+  *      - name: phone
+ *        description: updated admin img
+ *        schema:
+ *          type: string
+ *          format: string
  *    responses:
  *      '200':
  *        description: A successful request with the data of this updated admin send in json format
@@ -353,26 +361,22 @@ router.get("/admin/list",adminauth, async (req, res) => {
  */
 
 router.post("/update/:id",adminauth ,upload.single('img'), async (req, res) => {
+  const {  name, phone, img } = req.body
 
   if(req.file){
 
     const resultt = await cloudinary.v2.uploader.upload(req.file.path)
-  if(req.body.password){
-    var salt = await bcrypt.genSalt(10);
-    req.body.password = await bcrypt.hash(req.body.password, salt);
-  }
-    let result = await admin.findOneAndUpdate({ _id: req.params.id }, {  name:  req.body.name, password: req.body.password,img:resultt.secure_url })
-    res.json("done")
+ 
+    let result = await admin.findOneAndUpdate({ _id: req.params.id }, {  name:name,img:resultt.secure_url, phone:phone
+    })
+    res.json(result)
     
   }
 
 else{
-  if(req.body.password){
-    var salt = await bcrypt.genSalt(10);
-    req.body.password = await bcrypt.hash(req.body.password, salt);
-  }
-    let result = await admin.findOneAndUpdate({ _id: req.params.id }, {  name:  req.body.name, password: req.body.password })
-    res.json("done")
+
+    let result = await admin.findOneAndUpdate({ _id: req.params.id }, {  name: name, phone:phone})
+    res.json(result)
 
 
 }
@@ -429,15 +433,20 @@ router.post("/add/category/web",adminauth, parseUrlencoded,async(req,res)=>{
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
-
-  let new_category = new web({
+  let category = await web.findOne({
+    name: req.body.name
+  });
+  if (category) {
+    return res.status(400).send("category already exit.");
+  }
+  category = new web({
 
     name: req.body.name,
 
   });
 
-  await new_category.save();
-  res.json(new_category);
+  await category.save();
+  res.json(category);
 })
 
   /**
@@ -466,15 +475,22 @@ router.post("/add/category/Applicationdevelopment",adminauth, parseUrlencoded,as
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
+  let category = await android.findOne({
+    name: req.body.name
+  });
+  if (category) {
+    return res.status(400).send("category already exit.");
+  }
+ 
 
-  let new_category = new android({
+  category= new android({
 
     name: req.body.name,
 
   });
 
-  await new_category.save();
-  res.json(new_category);
+  await category.save();
+  res.json(category);
 })
 
 
@@ -504,15 +520,20 @@ router.post("/add/category/Miscellaneousfields", adminauth ,parseUrlencoded,asyn
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
-
-  let new_category = new testing({
+  let category = await testing.findOne({
+    name: req.body.name
+  });
+  if (category) {
+    return res.status(400).send("category already exit.");
+  }
+  category = new testing({
 
     name: req.body.name,
 
   });
 
-  await new_category.save();
-  res.json(new_category);
+  await category.save();
+  res.json(category);
 })
 
 
@@ -543,15 +564,20 @@ router.post("/add/category/Competitiveprogramming",adminauth , parseUrlencoded,a
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
-
-  let new_category = new competitive({
+  let category = await competitive.findOne({
+    name: req.body.name
+  });
+  if (category) {
+    return res.status(400).send("category already exit.");
+  }
+ category = new competitive({
 
     name: req.body.name,
 
   });
 
-  await new_category.save();
-  res.json(new_category);
+  await category.save();
+  res.json(category);
 })
 
 
@@ -582,15 +608,21 @@ router.post("/add/category/Datascience",adminauth , parseUrlencoded,async(req,re
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
-
-  let new_category = new data({
+  let category = await data.findOne({
+    name: req.body.name
+  });
+  if (category) {
+    return res.status(400).send("category already exit.");
+  }
+ category = new data({
 
     name: req.body.name,
 
   });
 
-  await new_category.save();
-  res.json(new_category);
+  await category.save();
+  res.json(category);
+  
 })
 
 
@@ -621,14 +653,21 @@ router.post("/add/category/Machinelearning",adminauth , parseUrlencoded,async(re
     return res.status(400).send(error.details[0].message);
   }
 
-  let new_category = new machine({
+
+  let category = await machine.findOne({
+    name: req.body.name
+  });
+  if (category) {
+    return res.status(400).send("category already exit.");
+  }
+ category = new machine({
 
     name: req.body.name,
 
   });
 
-  await new_category.save();
-  res.json(new_category);
+  await category.save();
+  res.json(category);
 })
 
 
@@ -662,14 +701,21 @@ router.post("/add/category/Opensource",adminauth , parseUrlencoded,async(req,res
     return res.status(400).send(error.details[0].message);
   }
 
-  let new_category = new opensource({
+
+  let category = await opensource.findOne({
+    name: req.body.name
+  });
+  if (category) {
+    return res.status(400).send("category already exit.");
+  }
+ category = new opensource({
 
     name: req.body.name,
 
   });
 
-  await new_category.save();
-  res.json(new_category);
+  await category.save();
+  res.json(category);
 })
 
 

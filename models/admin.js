@@ -30,6 +30,13 @@ var admin = mongoose.model("admin", new mongoose.Schema({
   owner:{
     type:Boolean,
     default:false
+  },
+  phone: {
+    type: String,
+    min: 11,
+    max: 14,
+    required: true,
+
   }
 }));
 
@@ -39,6 +46,7 @@ function validateadmin(admin) {
     name: joi.string().min(5).max(25).required(),
     password: joi.string().min(6).required(),
     email: joi.string().max(255).email().required(),
+    phone: joi.string().min(11).max(14).required(),
 
 
   };

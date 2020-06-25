@@ -5,6 +5,7 @@ var opensource = mongoose.model("opensource", new mongoose.Schema({
 
     name:{
         type:String,
+        unique: true
     } ,
     post: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -19,7 +20,7 @@ function validateopensource(developers) {
     var Schema = {
    
        
-        name: joi.string().min(2).max(15).required(),
+        name: joi.string().max(15).required(),
         
    
    

@@ -229,13 +229,13 @@ router.post("/update/:id", auth,upload.single('img'), async (req, res) => {
     const resultt = await cloudinary.v2.uploader.upload(req.file.path)
 
     let result = await user.findOneAndUpdate({ _id: req.params.id }, {  name:  name, phone: phone, country: country,img:resultt.secure_url ,Age:Age,About:About})
-    res.json("done")
+    res.json(result)
   }
 
 else{
 
   let result = await user.findOneAndUpdate({ _id: req.params.id }, {  name:  name, phone: phone, country: country,Age:Age,About:About})
-  res.json("done")
+  res.json(result)
 
 
 }
@@ -385,10 +385,13 @@ router.get("/list/posts/:id",auth,function(req,res){
 *    - "password"
 *    - "name"
 *    - "img"
+*    - "phone"
 *    properties:
 *      email:
 *        type: "string"
 *      password:
+*        type: "string"
+*      phone:
 *        type: "string"
 *    xml:
 *      name: "admin"
