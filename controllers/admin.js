@@ -359,7 +359,7 @@ router.post("/update/:id",adminauth ,upload.single('img'), async (req, res) => {
 
     const resultt = await cloudinary.v2.uploader.upload(req.file.path)
  
-    let result = await admin.findOneAndUpdate({ _id: req.params.id }, {  name:  req.body.name, phone: phone,img:resultt.secure_url })
+    let result = await admin.findOneAndUpdate({ _id: req.params.id }, {  name: name, phone: phone,img:resultt.secure_url })
     res.json(result)
     
   }
